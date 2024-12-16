@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminate Connection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .form-container {
+            width: 400px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 22px;
+            color: #34495e;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        button {
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+
+        .message {
+            color: green;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            background-color: #e74c3c;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Terminate Connection</h1>
+        <form id="terminateForm" onsubmit="return validateForm(event)">
+            <label for="connectionId">Connection ID:</label>
+            <input type="text" id="connectionId" name="connectionId" placeholder="Enter Connection ID">
+            <div id="connectionIdError" class="error">Connection ID is required</div>
+
+            <label for="reason">Reason for Termination:</label>
+            <textarea id="reason" name="reason" placeholder="Enter the reason for termination"></textarea>
+
+            <button type="submit">Terminate Connection</button>
+        </form>
+
+        <div id="successMessage" class="message">Connection terminated successfully!</div>
+
+        <button class="back-button" onclick="window.location.href='/'">Back to Dashboard</button>
+    </div>
+
+    <script>
+        function validateForm(event) {
+            let isValid = true;
+
+            // Get the input value for Connection ID
+            const connectionId = document.getElementById('connectionId').value.trim();
+
+            // Get the error element for Connection ID
+            const connectionIdError = document.getElementById('connectionIdError');
+
+            // Reset the error message for Connection ID
+            connectionIdError.style.display = 'none';
+
+            // Validate Connection ID
+            if (!/^[a-zA-Z0-9]+$/.test(connectionId)) {
+                connectionIdError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Show success message if valid
+            if (isValid) {
+                event.preventDefault(); // Prevent actual form submission
+                document.getElementById('successMessage').style.display = 'block';
+            }
+
+            return isValid; // Return whether the form is valid
+        }
+    </script>
+</body>
+</html>
