@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View All Plans</title>
+</head>
+<body>
+    <h1>All Plans</h1>
+    <div th:if="${error}" style="color: red;" th:text="${error}"></div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Plan ID</th>
+                <th>Plan Name</th>
+                <th>Fixed Rate</th>
+                <th>Data Limit</th>
+                <th>Call Limit</th>
+                <th>SMS Limit</th>
+                <th>Plan Group</th>
+                <th>Number of Days</th>
+                <th>Status</th>
+                <th>Extra Charge Per MB</th>
+                <th>Extra Charge Per Call</th>
+                <th>Extra Charge Per SMS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="plan : ${listOfPlans}">
+                <td th:text="${plan.planId}"></td>
+                <td th:text="${plan.planName}"></td>
+                <td th:text="${plan.fixedRate}"></td>
+                <td th:text="${plan.dataLimit}"></td>
+                <td th:text="${plan.callLimit}"></td>
+                <td th:text="${plan.smsLimit}"></td>
+                <td th:text="${plan.planGroup}"></td>
+                <td th:text="${plan.numberOfDay}"></td>
+                <td th:text="${plan.status}"></td>
+                <td th:text="${plan.extraChargePerMB}"></td>
+                <td th:text="${plan.extraChargePerCall}"></td>
+                <td th:text="${plan.extraChargePerSMS}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

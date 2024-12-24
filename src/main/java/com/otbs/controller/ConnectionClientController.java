@@ -16,7 +16,7 @@ public class ConnectionClientController {
     }
 
     // Render the main page (Apply for New Connection)
-    @GetMapping("/")
+    @GetMapping("/render")
     public String renderPage() {
         return "apply";
     }

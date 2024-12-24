@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Plans</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .section h2 {
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, button {
+            padding: 5px;
+            margin-top: 5px;
+            width: 100%;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Plan Management</h1>
+
+    <!-- Get All Plans -->
+    <div class="section">
+        <h2>View All Plans</h2>
+        <a th:href="@{/plan/viewAllPlans}">Click here to view all plans</a>
+    </div>
+
+    <!-- Get Plan by ID -->
+    <div class="section">
+        <h2>Get Plan by ID</h2>
+        <form th:action="@{/plan/searchById}" th:method="get">
+            <div class="form-group">
+                <label for="planId">Plan ID:</label>
+                <input type="number" id="planId" name="planId" required>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Get Plan by Name -->
+    <div class="section">
+        <h2>Get Plan by Name</h2>
+        <form th:action="@{/plan/searchByName}" th:method="get">
+            <div class="form-group">
+                <label for="planName">Plan Name:</label>
+                <input type="text" id="planName" name="planName" required>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Get Plans by Fixed Rate --> 
+    <div class="section">
+        <h2>Get Plans by Fixed Rate</h2>
+        <form th:action="@{/plan/searchByFixedRate}" th:method="get">
+            <div class="form-group">
+                <label for="fixedRate">Fixed Rate:</label>
+                <input type="number" step="0.01" id="fixedRate" name="fixedRate" required>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Get Plans by Plan Group -->
+    <div class="section">
+        <h2>Get Plans by Plan Group</h2>
+        <form th:action="@{/plan/searchByPlanGroup}" th:method="get">
+            <div class="form-group">
+                <label for="planGroup">Plan Group:</label>
+                <input type="text" id="planGroup" name="planGroup" required>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Get Plans by Data Limit -->
+    <div class="section">
+        <h2>Get Plans by Data Limit</h2>
+        <form th:action="@{/plan/searchByDataLimit}" th:method="get">
+            <div class="form-group">
+                <label for="dataLimit">Data Limit:</label>
+                <input type="text" id="dataLimit" name="dataLimit" required>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Get Plans by Number of Days -->
+    <div class="section">
+        <h2>Get Plans by Number of Days</h2>
+        <form th:action="@{/plan/searchByNumberOfDays}" th:method="get">
+            <div class="form-group">
+                <label for="numberOfDays">Number of Days:</label>
+                <input type="number" id="numberOfDays" name="numberOfDays" required>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Get Plans by Status -->
+    <div class="section">
+        <h2>Get Plans by Status</h2>
+        <form th:action="@{/plan/searchByStatus}" th:method="get">
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="ACTIVE">Active</option>
+                    <option value="INACTIVE">Inactive</option>
+                </select>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+	
+    <!-- Add Plan -->
+    <div class="section">
+        <h2>Add Plan</h2>
+        <form th:action="@{/plan/addPlan}" th:method="post">
+            <!-- Include all fields needed to create a plan -->
+            <button type="submit">Add Plan</button>
+        </form>
+    </div>
+
+    <!-- Update Plan -->
+    <div class="section">
+        <h2>Update Plan</h2>
+        <form th:action="@{/plan/updatePlan}" th:method="post">
+            <!-- Include fields needed to update a plan -->
+            <button type="submit">Update Plan</button>
+        </form>
+    </div>
+
+    <!-- Delete Plan -->
+    <div class="section">
+        <h2>Delete Plan</h2>
+        <form th:action="@{/plan/deletePlan}" th:method="post">
+            <div class="form-group">
+                <label for="planIdToDelete">Plan ID:</label>
+                <input type="number" id="planIdToDelete" name="planId" required>
+            </div>
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+</body>
+</html>
