@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Outlets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">All Outlets</h1>
+        
+        <!-- Table to display all outlets -->
+        <div th:if="${outlets != null && outlets.size() > 0}">
+            <table class="table table-bordered table-striped mt-4">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Outlet ID</th>
+                        <th>Location</th>
+                        <th>Available SIMs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="outlet : ${outlets}">
+                        <td th:text="${outlet.outletId}"></td>
+                        <td th:text="${outlet.location}"></td>
+                        <td th:text="${outlet.availableSIMs}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Message if no outlets are available -->
+        <div th:if="${outlets == null || outlets.size() == 0}" class="alert alert-warning mt-4">
+            <strong>No outlets found!</strong> There are currently no outlets available.
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

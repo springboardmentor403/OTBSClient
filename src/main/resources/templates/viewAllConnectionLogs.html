@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Connection Logs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">View All Connection Logs</h1>
+        
+        <!-- Check if there are any connection logs -->
+        <div th:if="${connectionLogs != null and !connectionLogs.isEmpty()}" class="mt-4">
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Log ID</th>
+                        <th>Connection ID</th>
+                        <th>Connection Type</th>
+                        <th>Network Type</th>
+                        <th>Change Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Iterate over the list of connection logs -->
+                    <tr th:each="log : ${connectionLogs}">
+                        <td th:text="${log.logId}"></td>
+                        <td th:text="${log.connectionObj.connectionId}"></td>
+                        <td th:text="${log.connectionType}"></td>
+                        <td th:text="${log.networkType}"></td>
+                        <td th:text="${log.changedate}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Message if there are no connection logs -->
+        <div th:if="${connectionLogs == null or connectionLogs.isEmpty()}" class="alert alert-info mt-4">
+            <strong>Info!</strong> No connection logs found.
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

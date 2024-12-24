@@ -80,13 +80,15 @@ public class Connection {
 		this.status = status;
 	}
 
-//	public String getActivationdate() {
-//		return activationdate;
-//	}
-//
-//	public void setActivationdate(String activationdate) {
-//		this.activationdate = activationdate;
-//	}
+	public LocalDate getActivationdate() {
+		return activationdate;
+	}
+
+	public void setActivationdate(LocalDate activationdate) {
+		this.activationdate = activationdate;
+	}
+
+
 //
 //	public List<Complaint> getComplaintsRaised() {
 //		return complaintsRaised;

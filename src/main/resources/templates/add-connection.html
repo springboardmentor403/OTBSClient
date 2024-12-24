@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Connection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script>
+        function validateForm(event) {
+            const activationDate = document.getElementById("activationDate").value;
+            const currentDate = new Date().toISOString().split("T")[0];
+
+            if (activationDate < currentDate) {
+                alert("Activation date cannot be in the past.");
+                event.preventDefault();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Activate Connection</h1>
+        <form th:action="@{/add-connection}" th:object="${connection}" method="post" class="mt-4" onsubmit="validateForm(event)">
+            <div class="mb-3">
+                <label for="customerId" class="form-label">Customer ID</label>
+                <input type="text" id="customerId" name="customerId" class="form-control" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="connectionType" class="form-label">Connection Type</label>
+                <select id="connectionType" name="connectionType" class="form-select" required>
+                    <option value="">Select Connection Type</option>
+                    <option value="prepaid">Prepaid</option>
+                    <option value="postpaid">Postpaid</option>
+                    <option value="broadband">Broadband</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="networkType" class="form-label">Network Type</label>
+                <select id="networkType" name="networkType" class="form-select" required>
+                    <option value="">Select Network Type</option>
+                    <option value="4G">4G</option>
+                    <option value="5G">5G</option>
+                    <option value="Fiber">Fiber</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="activationDate" class="form-label">Activation Date</label>
+                <input type="date" id="activationDate" name="activationDate" class="form-control" required>
+            </div>
+			<div class="mb-3">
+			            <label for="planId" class="form-label">Plan ID</label>
+			            <input type="text" id="planId" name="planId" class="form-control" placeholder="Select plan before applying for connection"required>
+			        </div>
+			<div class="mb-3">
+			                <label for="outletId" class="form-label">Outlet ID</label>
+			                <input type="text" id="outletId" name="outletId" class="form-control"  placeholder="Add outlet to know outlet ID" required>
+			            </div>
+		
+            <!-- Hidden status field, defaulted to 'active' -->
+            <input type="hidden" id="status" name="status" value="active">
+            <button type="submit" class="btn btn-primary">Activate Connection</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

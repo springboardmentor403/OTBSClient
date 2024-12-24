@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Connection Log by Connection ID</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">View Connection Log by Connection ID</h1>
+        
+        <!-- Form to get the Connection ID -->
+        <form th:action="@{/view-connection-log}" method="get" class="mt-4">
+            <div class="mb-3">
+                <label for="connectionId" class="form-label">Connection ID</label>
+                <input type="text" id="connectionId" name="connectionId" class="form-control" placeholder="Enter Connection ID" required>
+            </div>
+            <button type="submit" class="btn btn-primary">View Connection Log</button>
+        </form>
+
+        <!-- Display Connection Log Details -->
+        <div th:if="${connectionLog != null}" class="mt-5">
+            <h3>Connection Log Details</h3>
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Log ID</th>
+                        <th>Connection ID</th>
+                        <th>Connection Type</th>
+                        <th>Network Type</th>
+                        <th>Change Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${connectionLog.logId}"></td>
+                        <td th:text="${connectionLog.connectionObj.connectionId}"></td>
+                        <td th:text="${connectionLog.connectionType}"></td>
+                        <td th:text="${connectionLog.networkType}"></td>
+                        <td th:text="${connectionLog.changedate}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Message if Connection Log not found -->
+        <div th:if="${connectionLog == null}" class="alert alert-danger mt-4">
+            <strong>Warning!</strong> No connection log found with the provided Connection ID.
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>

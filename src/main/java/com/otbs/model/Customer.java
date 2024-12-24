@@ -8,12 +8,21 @@ import jakarta.persistence.Id;
 @Entity
 public class Customer {
 	
-    private int id;
-    public int getId() {
-		return id;
+    private int customerId;
+	private String name;
+    private String email;
+    private String phoneNumber;
+    private String address;
+    private String username;
+    private String password;
+    private String dob;
+    private String gender;
+  
+	public int getCustomerId() {
+		return customerId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 	public String getName() {
 		return name;
@@ -63,13 +72,6 @@ public class Customer {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	private String name;
-    private String email;
-    private String phoneNumber;
-    private String address;
-    private String username;
-    private String password;
-    private String dob;
-    private String gender;
+
     
 }

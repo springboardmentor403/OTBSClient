@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade Connection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script>
+        function validateForm(event) {
+            const changeDate = document.getElementById("changeDate").value;
+            const currentDate = new Date().toISOString().split("T")[0];
+
+            if (changeDate < currentDate) {
+                alert("Change date cannot be in the past.");
+                event.preventDefault();
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Upgrade Connection</h1>
+        <form th:action="@{/upgrade-connection}" method="post" class="mt-4" onsubmit="validateForm(event)">
+            <div class="mb-3">
+                <label for="connectionId" class="form-label">Connection ID</label>
+                <input type="text" id="connectionId" name="connectionId" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="connectionType" class="form-label">Connection Type</label>
+                <select id="connectionType" name="connectionType" class="form-select" required>
+                    <option value="">Select Connection Type</option>
+                    <option value="prepaid">Prepaid</option>
+                    <option value="postpaid">Postpaid</option>
+                    <option value="broadband">Broadband</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="networkType" class="form-label">Network Type</label>
+                <select id="networkType" name="networkType" class="form-select" required>
+                    <option value="">Select Network Type</option>
+                    <option value="4G">4G</option>
+                    <option value="5G">5G</option>
+                    <option value="Fiber">Fiber</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="changeDate" class="form-label">Change Date</label>
+                <input type="date" id="changeDate" name="changeDate" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upgrade Connection</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+</html>
