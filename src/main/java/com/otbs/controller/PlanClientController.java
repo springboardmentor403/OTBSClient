@@ -168,13 +168,4 @@ public class PlanClientController {
     }
 	
 	
-	
-//	@GetMapping("/viewAllPlans")
-//    public String listPlans(Model model) {
-//		ResponseEntity<List> response = restTemplate.getForEntity(planBasedUrl+"/getAll", List.class);
-//        List pList = response.getBody();
-//		model.addAttribute("listOfPlans", pList);
-//        return "viewAll";
-//    }
-
 }
