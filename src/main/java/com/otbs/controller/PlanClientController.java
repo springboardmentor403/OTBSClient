@@ -51,31 +51,7 @@ public class PlanClientController {
         }
         return "viewAllPlans";
     }
-	
-	
-	
-//	@GetMapping("/viewAllPlans")
-//	public String listPlans(Model model) {
-//	    try {
-//	        ResponseEntity<List> response = restTemplate.getForEntity(planBasedUrl + "/getAll", List.class);
-//	        List plans = response.getBody();
-////	        System.out.println("Fetched Plans: " + plans); 	// Debug log
-//	        model.addAttribute("listOfPlans", plans);
-//	    } catch (Exception e) {
-//	        model.addAttribute("error", "Failed to fetch plans: " + e.getMessage());
-//	        e.printStackTrace(); 	// Debug log
-//	    }
-//	    return "viewAllPlans";
-//	}
 
-	
-	
-	@GetMapping("/searchId")  		// instaded of this i am using the managePlan page.
-	public String getId() {
-		return "searchId";
-	}
-	
-	
 	@GetMapping("/searchById")
     public String searchPlanById(@RequestParam("planId") int planId, Model model) {
         try {
@@ -86,33 +62,30 @@ public class PlanClientController {
         }
         return "searchResultPlan";
     }
-	
-	
-//	@GetMapping("/searchById")
-//	public String searchPlanById(@RequestParam("planId") int planId, Model model) {
-//	    try {
-//	        String url = planBasedUrl + "/getId/" + planId;
-//	        Plan plan = restTemplate.getForObject(url, Plan.class);  	// Fetching a single plan
-//	        model.addAttribute("plan", plan);
-//	    } catch (Exception e) {
-//	        model.addAttribute("error", "Plan not found: " + e.getMessage());
-//	    }
-//	    return "searchResultPlan";       //  this Thymeleaf template will terurn
-//	}
-	
+
 	
 	@GetMapping("/searchByName")
-	public String searchPlanByName(@RequestParam("planName") int planName, Model model) {
-	    try {
-	        String url = planBasedUrl + "/getName/" + planName;
-	        Plan plan = restTemplate.getForObject(url, Plan.class);  	
-	        model.addAttribute("plan", plan);
-	    } catch (Exception e) {
-	        model.addAttribute("error", "Plan not found: " + e.getMessage());
-	    }
-	    return "searchResultPlan";     
-	}
+    public String searchPlanByName(@RequestParam("planName") String planName, Model model) {
+        try {
+            ResponseEntity<Plan> response = restTemplate.getForEntity(planBasedUrl + "/getName/" + planName, Plan.class);
+            model.addAttribute("plan", response.getBody());
+        } catch (Exception e) {
+            model.addAttribute("error", "Plan not found: " + e.getMessage());
+        }
+        return "searchResultPlan";
+    }
 	
+
+	@GetMapping("/searchByFixedRate")
+    public String searchPlanByName(@RequestParam("FixedRate") double FixedRate, Model model) {
+        try {
+            ResponseEntity<Plan> response = restTemplate.getForEntity(planBasedUrl + "/fixed-rate/" + FixedRate, Plan.class);
+            model.addAttribute("plan", response.getBody());
+        } catch (Exception e) {
+            model.addAttribute("error", "Plan not found: " + e.getMessage());
+        }
+        return "searchResultPlan";
+    }
 	
 	
 //	@PostMapping("/addPlan")
