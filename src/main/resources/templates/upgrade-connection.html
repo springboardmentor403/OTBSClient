@@ -39,9 +39,6 @@
         .mb-3 label {
             font-weight: bold;
         }
-        .alert-danger {
-            font-size: 1.2rem;
-        }
     </style>
     
     <script>
@@ -59,14 +56,14 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Upgrade Connection</h1>
-        <form th:action="@{/upgrade-connection}" method="post" class="mt-4" onsubmit="validateForm(event)">
+        <form th:action="@{/upgrade-connection}" th:object="${connection}" method="post" class="mt-4" onsubmit="validateForm(event)">
             <div class="mb-3">
                 <label for="connectionId" class="form-label">Connection ID</label>
-                <input type="text" id="connectionId" name="connectionId" class="form-control" required>
+                <input type="text" id="connectionId" name="connectionId" class="form-control" required aria-label="Enter Connection ID">
             </div>
             <div class="mb-3">
                 <label for="connectionType" class="form-label">Connection Type</label>
-                <select id="connectionType" name="connectionType" class="form-select" required>
+                <select id="connectionType" name="connectionType" class="form-select" required aria-label="Select Connection Type">
                     <option value="">Select Connection Type</option>
                     <option value="prepaid">Prepaid</option>
                     <option value="postpaid">Postpaid</option>
@@ -75,7 +72,7 @@
             </div>
             <div class="mb-3">
                 <label for="networkType" class="form-label">Network Type</label>
-                <select id="networkType" name="networkType" class="form-select" required>
+                <select id="networkType" name="networkType" class="form-select" required aria-label="Select Network Type">
                     <option value="">Select Network Type</option>
                     <option value="4G">4G</option>
                     <option value="5G">5G</option>
@@ -84,14 +81,16 @@
             </div>
             <div class="mb-3">
                 <label for="changeDate" class="form-label">Change Date</label>
-                <input type="date" id="changeDate" name="changeDate" class="form-control" required>
+                <input type="date" id="changeDate" name="changeDate" class="form-control" 
+                       required aria-label="Select Change Date" 
+                       min="${T(java.time.LocalDate).now()}">
             </div>
             <button type="submit" class="btn btn-primary">Upgrade Connection</button>
         </form>
 
         <!-- Button to go back to connection management -->
         <div class="text-center mt-4">
-            <a href="/connection-management" class="btn btn-back">Go Back to Connection Management</a>
+            <a th:href="@{/connection-management}" class="btn btn-back">Go Back to Connection Management</a>
         </div>
     </div>
 

@@ -35,11 +35,18 @@
     </style>
     <script>
         function validateForm(event) {
-            const activationDate = document.getElementById("activationDate").value;
-            const currentDate = new Date().toISOString().split("T")[0];
-
+            const activationDateInput = document.getElementById("activationDate").value;
+            const activationDate = new Date(activationDateInput);
+            const currentDate = new Date();
+            
+            // Remove time from the current date for comparison
+            currentDate.setHours(0, 0, 0, 0);
+            
             if (activationDate < currentDate) {
                 alert("Activation date cannot be in the past.");
+                event.preventDefault();
+            } else if (!/^\d{4}-\d{2}-\d{2}$/.test(activationDateInput)) {
+                alert("Invalid date format. Please use YYYY-MM-DD.");
                 event.preventDefault();
             }
         }
@@ -74,7 +81,10 @@
             </div>
             <div class="mb-3">
                 <label for="activationDate" class="form-label">Activation Date</label>
-                <input type="date" id="activationDate" name="activationDate" class="form-control" required>
+                <input type="date" id="activationDate" name="activationDate" class="form-control" 
+                       required th:field="*{activationDate}" 
+                       pattern="\d{4}-\d{2}-\d{2}" 
+                       min="${T(java.time.LocalDate).now()}">
             </div>
             <div class="mb-3">
                 <label for="planId" class="form-label">Plan ID</label>
