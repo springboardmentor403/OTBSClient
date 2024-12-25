@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activate Connection</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+        .btn-back {
+            margin-top: 20px;
+        }
+    </style>
     <script>
         function validateForm(event) {
             const activationDate = document.getElementById("activationDate").value;
@@ -48,19 +76,20 @@
                 <label for="activationDate" class="form-label">Activation Date</label>
                 <input type="date" id="activationDate" name="activationDate" class="form-control" required>
             </div>
-			<div class="mb-3">
-			            <label for="planId" class="form-label">Plan ID</label>
-			            <input type="text" id="planId" name="planId" class="form-control" placeholder="Select plan before applying for connection"required>
-			        </div>
-			<div class="mb-3">
-			                <label for="outletId" class="form-label">Outlet ID</label>
-			                <input type="text" id="outletId" name="outletId" class="form-control"  placeholder="Add outlet to know outlet ID" required>
-			            </div>
-		
+            <div class="mb-3">
+                <label for="planId" class="form-label">Plan ID</label>
+                <input type="text" id="planId" name="planId" class="form-control" placeholder="Select plan before applying for connection" required>
+            </div>
+            <div class="mb-3">
+                <label for="outletId" class="form-label">Outlet ID</label>
+                <input type="text" id="outletId" name="outletId" class="form-control" placeholder="Add outlet to know outlet ID" required>
+            </div>
+            
             <!-- Hidden status field, defaulted to 'active' -->
             <input type="hidden" id="status" name="status" value="active">
             <button type="submit" class="btn btn-primary">Activate Connection</button>
         </form>
+        <a th:href="@{/connection-management}" class="btn btn-secondary btn-back">Go Back</a>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>

@@ -5,6 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connection Activation Success</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 600px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .alert {
+            font-size: 1.1rem;
+        }
+        .btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+        .btn-back {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -14,9 +42,10 @@
             <p>Connection ID: <span th:text="${connectionId}"></span></p>
             <p>Processing Fee: <span th:text="${processingFee}"></span></p>
         </div>
-        <!-- Apply for another connection button -->
+        <!-- Buttons -->
         <div class="text-center mt-4">
             <a href="/connection/activate" class="btn btn-primary">Apply for Another Connection</a>
+            <a th:href="@{/connection-management}" class="btn btn-secondary btn-back">Go Back to Connection Management</a>
         </div>
     </div>
 
