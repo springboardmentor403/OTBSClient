@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTBS Bill Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .unpaidBill {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .heading h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .bills table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .bills th, .bills td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .bills th {
+            background-color: #4CAF50;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .bills tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .bills button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .bills button:hover {
+            background-color: #45a049;
+        }
+
+        .unpaidBill button {
+            display: block;
+            margin: 0 auto;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .unpaidBill button:hover {
+            background-color: #0056b3;
+        }
+
+        .allbills {
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .bills table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .bills th, .bills td {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .unpaidBill {
+                padding: 10px;
+            }
+
+            .unpaidBill button {
+                width: 100%;
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heading h1 {
+                font-size: 20px;
+            }
+
+            .bills button {
+                font-size: 12px;
+                padding: 8px 10px;
+            }
+
+            .unpaidBill button {
+                font-size: 12px;
+                padding: 6px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="unpaidBill">
+        <div class="heading">
+            <h1>BILL SUMMARY</h1>
+        </div>
+        <div class="bills">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bill Id</th> 
+                        <th>Plan Name</th>
+                        <th>Bill Generated Date</th>
+                        <th>Total Amount</th>
+                        <th>Payment Status</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="bills : ${unpaidBills}">
+                        <td th:text="${bills.billId}">Bill Id</td>
+                        <td th:text="${bills.usage.connection.plan.planName}">Plan Name</td>
+                        <td th:text="${bills.date}"></td>
+                        <td th:text="${bills.totalAmount}"></td>
+                        <td th:text="${bills.status}"></td>
+                        <td th:text="${bills.dueDate}"></td>
+                        <td>
+                            <button>Download Bill</button>
+                            <button>Pay Bill</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <hr>
+</body>
+</html>

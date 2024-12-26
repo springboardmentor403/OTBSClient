@@ -17,6 +17,7 @@ public class AppConfig {
     
         private String customerBaseUrl;
         private String adminBaseUrl;
+        private String billBaseUrl;
 
         // Getters and Setters
         public String getCustomerBaseUrl() {
@@ -34,5 +35,13 @@ public class AppConfig {
         public void setAdminBaseUrl(String adminBaseUrl) {
             this.adminBaseUrl = adminBaseUrl;
         }
+
+    public String getBillBaseUrl() {
+        return billBaseUrl;
+    }
+
+    public void setBillBaseUrl(String billBaseUrl) {
+        this.billBaseUrl = billBaseUrl;
+    }
 }
 

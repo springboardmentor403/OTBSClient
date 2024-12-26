@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTBS Bill Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/css/bill.css">
+</head>
+<body>
+    <div class="unpaidBill">
+        <div class="heading">
+            <h1>BILL SUMMARY</h1>
+        </div>
+        <div class="bills">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bill Id</th> 
+                        <th>Plan Name</th>
+                        <th>Bill Generated Date</th>
+                        <th>Total Amount</th>
+                        <th>Payment Status</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="bills : ${unpaidBills}">
+                        <td th:text="${bills.billId}">Bill Id</td>
+                        <td th:text="${bills.usage.connection.plan.planName}">Plan Name</td>
+                        <td th:text="${bills.date}"></td>
+                        <td th:text="${bills.totalAmount}"></td>
+                        <td th:text="${bills.status}"></td>
+                        <td th:text="${bills.dueDate}"></td>
+                        <td>
+                            <button class="billButtons">Download Bill</button>
+                            <button class="billButtons">Pay Bill</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <button ><a th:href="@{/allBills}">View All Bills</a></button>
+    </div>
+    <br>
+    <hr>
+
+    <div class="allbills" th:if="${allBills}">
+        <div class="heading">
+            <h1>All Bills</h1>
+        </div>
+        <div class="bills">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Bill Id</th> 
+                        <th>Plan Name</th>
+                        <th>Bill Generated Date</th>
+                        <th>Total Amount</th>
+                        <th>Payment Status</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="bills : ${allBills}">
+                        <td th:text="${bills.billId}">Bill Id</td>
+                        <td th:text="${bills.usage.connection.plan.planName}">Plan Name</td>
+                        <td th:text="${bills.date}"></td>
+                        <td th:text="${bills.totalAmount}"></td>
+                        <td th:text="${bills.status}"></td>
+                        <td th:text="${bills.dueDate}"></td>
+                        <td>
+                            <button class="billButtons">Download Bill</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Additional content can be added here -->
+    </div>
+</body>
+</html>

@@ -80,11 +80,11 @@ public class Connection {
 		this.status = status;
 	}
 
-	public String getActivationdate() {
+	public LocalDate getActivationdate() {
 		return activationdate;
 	}
 
-	public void setActivationdate(String activationdate) {
+	public void setActivationdate(LocalDate activationdate) {
 		this.activationdate = activationdate;
 	}
 
