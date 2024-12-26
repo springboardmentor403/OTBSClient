@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete Plan</title>
+</head>
+<body>
+    <h1>Delete Plan</h1>
+    <div th:if="${error}" style="color: red;" th:text="${error}"></div>
+    <div th:if="${message}" style="color: green;" th:text="${message}"></div>
+    <form th:action="@{/plan/deletePlan}" method="post">
+        <label>Plan ID:</label>
+        <input type="number" name="planId" required/><br/>
+        <button type="submit">Delete Plan</button>
+    </form>
+</body>
+</html>

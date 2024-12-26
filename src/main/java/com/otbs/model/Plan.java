@@ -1,77 +1,183 @@
 package com.otbs.model;
-
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-// @AllArgsConstructor
-// @NoArgsConstructor
-// @Getter
-// @Setter
-
-@Entity
 public class Plan {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int planId;
-
-    // @NotBlank(message = "Plan name is mandatory")
-    // @Column(nullable = false, unique = true)
     private String planName;
-
-    // @Positive(message = "Fixed rate must be positive")
-    // @Column(nullable = false)
     private double fixedRate;
-
-    // @NotBlank(message = "Data limit is mandatory")
-    // @Column(nullable = false)
     private String dataLimit;
-
-    // @NotBlank(message = "Call limit is mandatory")
-    // @Column(nullable = false)
     private String callLimit;
-
-    // @NotBlank(message = "SMS limit is mandatory")
-    // @Column(nullable = false)
     private String smsLimit;
-
-    // @NotBlank(message = "Plan group is mandatory")
-    // @Column(nullable = false)
     private String planGroup;
-
-    // @Positive(message = "Number of days must be positive")
-    // @Column(nullable = false)
     private int numberOfDay;
-    
-    // @Enumerated(EnumType.STRING)
-    // @NotNull(message = "Plan status is mandatory")
-    @Column(nullable = false)
     private PlanStatus status;
-
-    // Additional charge attributes (optional)
-    // @PositiveOrZero(message = "Additional charge per MB must be non-negative")
     private float extraChargePerMB;
-
-    // @PositiveOrZero(message = "Additional charge per call must be non-negative")
     private float extraChargePerCall;
-
-    // @PositiveOrZero(message = "Additional charge per SMS must be non-negative")
     private float extraChargePerSMS;
-    
-    
-    // @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  
+//    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Connection> connections;
     
-
     
-    public enum PlanStatus {
+    
+    public int getPlanId() {
+		return planId;
+	}
+
+
+
+	public void setPlanId(int planId) {
+		this.planId = planId;
+	}
+
+
+
+	public String getPlanName() {
+		return planName;
+	}
+
+
+
+	public void setPlanName(String planName) {
+		this.planName = planName;
+	}
+
+
+
+	public double getFixedRate() {
+		return fixedRate;
+	}
+
+
+
+	public void setFixedRate(double fixedRate) {
+		this.fixedRate = fixedRate;
+	}
+
+
+
+	public String getDataLimit() {
+		return dataLimit;
+	}
+
+
+
+	public void setDataLimit(String dataLimit) {
+		this.dataLimit = dataLimit;
+	}
+
+
+
+	public String getCallLimit() {
+		return callLimit;
+	}
+
+
+
+	public void setCallLimit(String callLimit) {
+		this.callLimit = callLimit;
+	}
+
+
+
+	public String getSmsLimit() {
+		return smsLimit;
+	}
+
+
+
+	public void setSmsLimit(String smsLimit) {
+		this.smsLimit = smsLimit;
+	}
+
+
+
+	public String getPlanGroup() {
+		return planGroup;
+	}
+
+
+
+	public void setPlanGroup(String planGroup) {
+		this.planGroup = planGroup;
+	}
+
+
+
+	public int getNumberOfDay() {
+		return numberOfDay;
+	}
+
+
+
+	public void setNumberOfDay(int numberOfDay) {
+		this.numberOfDay = numberOfDay;
+	}
+
+
+
+	public PlanStatus getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(PlanStatus status) {
+		this.status = status;
+	}
+
+
+
+	public float getExtraChargePerMB() {
+		return extraChargePerMB;
+	}
+
+
+
+	public void setExtraChargePerMB(float extraChargePerMB) {
+		this.extraChargePerMB = extraChargePerMB;
+	}
+
+
+
+	public float getExtraChargePerCall() {
+		return extraChargePerCall;
+	}
+
+
+
+	public void setExtraChargePerCall(float extraChargePerCall) {
+		this.extraChargePerCall = extraChargePerCall;
+	}
+
+
+
+	public float getExtraChargePerSMS() {
+		return extraChargePerSMS;
+	}
+
+
+
+	public void setExtraChargePerSMS(float extraChargePerSMS) {
+		this.extraChargePerSMS = extraChargePerSMS;
+	}
+
+
+
+	public List<Connection> getConnections() {
+		return connections;
+	}
+
+
+
+	public void setConnections(List<Connection> connections) {
+		this.connections = connections;
+	}
+
+
+
+	public enum PlanStatus {
         ACTIVE,
         INACTIVE
     }

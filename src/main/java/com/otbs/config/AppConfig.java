@@ -19,12 +19,23 @@ public class AppConfig {
         private String adminBaseUrl;
         private String billBaseUrl;
 
+        private String planBasedUrl;
+
         // Getters and Setters
+        
+        public String getPlanBasedUrl() {
+			return planBasedUrl;
+		}
+
+		public void setPlanBasedUrl(String planBasedUrl) {
+			this.planBasedUrl = planBasedUrl;
+		}
+        
         public String getCustomerBaseUrl() {
             return customerBaseUrl;
         }
 
-        public void setCustomerBaseUrl(String customerBaseUrl) {
+		public void setCustomerBaseUrl(String customerBaseUrl) {
             this.customerBaseUrl = customerBaseUrl;
         }
 

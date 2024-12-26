@@ -14,7 +14,7 @@ public class Connection {
 	private Outlet outletObj;
 	private String status;
 	private Plan plan;
-	private List<Complaint> complaintsRaised;
+//	private List<Complaint> complaintsRaised;
 	
 	 public Plan getPlan() {
 		return plan;
@@ -88,13 +88,15 @@ public class Connection {
 		this.activationdate = activationdate;
 	}
 
-	public List<Complaint> getComplaintsRaised() {
-		return complaintsRaised;
-	}
 
-	public void setComplaintsRaised(List<Complaint> complaintsRaised) {
-		this.complaintsRaised = complaintsRaised;
-	}
+//
+//	public List<Complaint> getComplaintsRaised() {
+//		return complaintsRaised;
+//	}
+//
+//	public void setComplaintsRaised(List<Complaint> complaintsRaised) {
+//		this.complaintsRaised = complaintsRaised;
+//	}
 	 
 	 
 }
