@@ -6,17 +6,22 @@
     <title>OTBS Bill Page</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/resources/css/bill.css">
+    <link rel="stylesheet" href="../static/css/bill.css">
 </head>
 <body>
     <div class="unpaidBill">
         <div class="heading">
             <h1>BILL SUMMARY</h1>
         </div>
-        <div class="bills">
-            <table>
+        <div th:if="${paymessage}" class="payalert" th:text="${paymessage}"> Notification </div>
+
+        <div class="bills" >
+            <div th:if="${message}" class="alert alert-info" th:text="${message}"> No Bill Available </div>
+
+            <table th:if="${unpaidBills}" class="table">
                 <thead>
                     <tr>
-                        <th>Bill Id</th> 
+                        <th>Bill ID</th>
                         <th>Plan Name</th>
                         <th>Bill Generated Date</th>
                         <th>Total Amount</th>
@@ -35,11 +40,14 @@
                         <td th:text="${bills.dueDate}"></td>
                         <td>
                             <button class="billButtons">Download Bill</button>
-                            <button class="billButtons">Pay Bill</button>
+                            <button class="billButtons">
+                                <a th:href="@{/paybill(billId=${bills.billId})}">Pay Bill</a>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+
         </div>
 
         <button ><a th:href="@{/allBills}">View All Bills</a></button>
