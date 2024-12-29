@@ -1,9 +1,11 @@
 package com.otbs.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,6 +66,16 @@ public class BillController {
         return "unpaidbillView";
     }
 
+    @GetMapping("/viewbill")
+    public String getbill(@RequestParam String billId, Model model, HttpSession session) {
+        ResponseEntity<Bill> response =restTemplate.getForEntity(billBaseUrl+"/customer/"+billId+"/bill", Bill.class);
+        Bill bill = (Bill) response.getBody();
+        model.addAttribute("bill",bill);
+         
+        return "billview";
+    }
+    
+
     @GetMapping("/paybill")
     public String payBill(@RequestParam String billId, Model model, HttpSession session) {
         // Call the backend API to process the payment
@@ -95,5 +107,69 @@ public class BillController {
         // Return the same view or redirect as needed
         return "unpaidbillView";
     }
+
+
+    // --------------------------Admine controller ----------------------------------------------------
+    
+
+    //view all unpaid bills 
+
+    @GetMapping("/allunpaidbills")
+    public String getAllUnpaidBills(Model model){
+        
+        try {
+            ResponseEntity<List> response = restTemplate.getForEntity(billBaseUrl + "/customer/unpaidbills", List.class);
+            List allUnpaidBills =response.getBody();
+            model.addAttribute("allUnpaidBills",allUnpaidBills);
+
+        } catch (Exception e) {
+            model.addAttribute("message","NO Unpaid Bills");
+        }
+        model.addAttribute("allunpaid","All Unpaid Bills");
+        return "adminebillenquiry";
+    }
+
+    @GetMapping("/billcrossesduedate")
+    public String getAllUnpaidBillCrossDueDate(Model model) {
+        try {
+            ResponseEntity<List> response = restTemplate.getForEntity(billBaseUrl + "/customer/billcrossduedate", List.class);
+            List allUnpaidBills =response.getBody();
+            System.out.println(allUnpaidBills);
+            model.addAttribute("allUnpaidBills",allUnpaidBills);
+        } catch (Exception e) {
+            model.addAttribute("message","NO Unpaid Bills Crosses Due Date");
+        }
+        model.addAttribute("allunpaid","Unpaid Bills Crosses DueDate");
+        return "adminebillenquiry";
+    }
+    
+
+    //retrive the total revenue genetated
+
+    
+    @GetMapping("/revenuemanage")
+    public String getMethodName(Model model) {
+        return "billAdmine";
+    }
+
+    @GetMapping("/revenue")
+    public String getrevenueGenerated(@RequestParam("fromDate")  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate
+                ,@RequestParam("toDate")  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,Model model) {
+        try {
+            ResponseEntity<Double> response = restTemplate.getForEntity(billBaseUrl + "/revenue?startDate="+fromDate+"&endDate="+toDate, Double.class);
+            double revenue = response.getBody();
+            model.addAttribute("revenue",revenue);
+
+        } catch (Exception e) {
+            model.addAttribute("revmessage","No Bills Paid Yet ( No Revenue Generated )");
+        }
+        System.out.println(fromDate);
+        System.out.println("revenue executed");
+        return "billAdmine";
+    }
+
+
+    
+    
  
 }
