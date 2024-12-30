@@ -1,12 +1,7 @@
 package com.otbs.controller;
 
-import com.otbs.model.Customer;
-
-import jakarta.servlet.http.HttpSession;
-
 import java.util.HashMap;
 import java.util.Map;
- // Correct import for HttpSession
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
+
+import com.otbs.model.Customer;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CustomerClientController {
