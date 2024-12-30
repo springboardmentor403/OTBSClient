@@ -48,6 +48,11 @@
     <div class="container mt-5">
         <h1 class="text-center">View All Connection Logs</h1>
         
+        <!-- Search Form -->
+        <form th:action="@{/view-all-connectionLogs}" method="get" class="mb-4">
+            
+        </form>
+
         <!-- Check if there are any connection logs -->
         <div th:if="${connectionLogs != null and !connectionLogs.isEmpty()}" class="mt-4">
             <table class="table table-bordered table-striped">
@@ -57,6 +62,7 @@
                         <th>Connection ID</th>
                         <th>Connection Type</th>
                         <th>Network Type</th>
+                        <th>Status</th>
                         <th>Change Date</th>
                     </tr>
                 </thead>
@@ -67,6 +73,7 @@
                         <td th:text="${log.connectionObj.connectionId}"></td>
                         <td th:text="${log.connectionType}"></td>
                         <td th:text="${log.networkType}"></td>
+                        <td th:text="${log.status}"></td>
                         <td th:text="${log.changedate}"></td>
                     </tr>
                 </tbody>

@@ -53,14 +53,14 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Connection ID</th>
-                        <th>Customer Id</th>
+                        <th>Customer ID</th>
                         <th>Connection Type</th>
                         <th>Network Type</th>
                         <th>Processing Fee</th>
                         <th>Activation Date</th>
                         <th>Status</th>
-                        <th>Plan Id</th>
-                        <th>Outlet Id</th>
+                        <th>Plan ID</th>
+                        <th>Outlet ID</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,7 +70,8 @@
                         <td th:text="${connection.connectionType}"></td>
                         <td th:text="${connection.networkType}"></td>
                         <td th:text="${connection.processingFee}"></td>
-                        <td th:text="${connection.activationdate}"></td>
+                        <!-- Activation Date: Default format with fallback for null -->
+                        <td th:text="${connection.activationdate != null ? #dates.format(connection.activationdate, 'yyyy-MM-dd') : 'N/A'}"></td>
                         <td th:text="${connection.status}"></td>
                         <td th:text="${connection.plan.planId}"></td>
                         <td th:text="${connection.outletObj.outletId}"></td>

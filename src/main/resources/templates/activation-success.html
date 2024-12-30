@@ -37,14 +37,14 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Connection Activation Success</h1>
-        <div class="alert alert-success mt-4">
+     <!--  <div class="alert alert-success mt-4">
             <h4 th:text="${message}"></h4>
             <p>Connection ID: <span th:text="${connectionId}"></span></p>
             <p>Processing Fee: <span th:text="${processingFee}"></span></p>
-        </div>
+        </div> --> 
         <!-- Buttons -->
         <div class="text-center mt-4">
-            <a href="/connection/activate" class="btn btn-primary">Apply for Another Connection</a>
+            <a href="/add-connection" class="btn btn-primary">Apply for Another Connection</a>
             <a th:href="@{/connection-management}" class="btn btn-secondary btn-back">Go Back to Connection Management</a>
         </div>
     </div>

@@ -53,10 +53,10 @@
         <h1 class="text-center">View Connection by Connection ID</h1>
         
         <!-- Form to get the Connection ID -->
-        <form th:action="@{/connection{connectionId}}" method="get" class="mt-4">
+        <form th:action="@{/viewconnectionbyId}" method="get" class="mt-4">
             <div class="mb-3">
                 <label for="connectionId" class="form-label">Connection ID</label>
-                <input type="text" id="connectionId" name="connectionId" class="form-control" placeholder="Enter Connection ID" required>
+                <input type="number" id="connectionId" name="connectionId" class="form-control" placeholder="Enter Connection ID" required>
             </div>
             <button type="submit" class="btn btn-primary">View Connection</button>
         </form>
@@ -92,11 +92,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <!-- Message if Connection not found -->
-        <div th:if="${connection == null}" class="alert alert-danger mt-4">
-            <strong>Warning!</strong> No connection found with the provided Connection ID.
         </div>
 
         <!-- Button to go back to connection management -->

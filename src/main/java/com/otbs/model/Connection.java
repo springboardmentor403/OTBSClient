@@ -1,103 +1,88 @@
 package com.otbs.model;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class Connection {
-	
-	private int connectionId;
-	private Customer customerObj;
-	private String connectionType;
-	private String networkType;
-	private double processingFee;
-	private LocalDate activationdate;
-	private Outlet outletObj;
-	private String status;
-	private Plan plan;
-//	private List<Complaint> complaintsRaised;
-	
-	 public Plan getPlan() {
-		return plan;
-	}
+    
+    private int connectionId;
+    private Customer customerObj;
+    private String connectionType;
+    private String networkType;
+    private double processingFee;
+    private LocalDate activationdate;
+    private Outlet outletObj;
+    private String status;
+    private Plan plan;
 
-	public void setPlan(Plan plan) {
-		this.plan = plan;
-	}
+    public Plan getPlan() {
+        return plan;
+    }
 
-	public int getConnectionId() {
-		return connectionId;
-	}
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
 
-	public void setConnectionId(int connectionId) {
-		this.connectionId = connectionId;
-	}
+    public int getConnectionId() {
+        return connectionId;
+    }
 
-	public Customer getCustomerObj() {
-		return customerObj;
-	}
+    public void setConnectionId(int connectionId) {
+        this.connectionId = connectionId;
+    }
 
-	public void setCustomerObj(Customer customerObj) {
-		this.customerObj = customerObj;
-	}
+    public Customer getCustomerObj() {
+        return customerObj;
+    }
 
-	public String getConnectionType() {
-		return connectionType;
-	}
+    public void setCustomerObj(Customer customerObj) {
+        this.customerObj = customerObj;
+    }
 
-	public void setConnectionType(String connectionType) {
-		this.connectionType = connectionType;
-	}
+    public String getConnectionType() {
+        return connectionType;
+    }
 
-	public String getNetworkType() {
-		return networkType;
-	}
+    public void setConnectionType(String connectionType) {
+        this.connectionType = connectionType;
+    }
 
-	public void setNetworkType(String networkType) {
-		this.networkType = networkType;
-	}
+    public String getNetworkType() {
+        return networkType;
+    }
 
-	public double getProcessingFee() {
-		return processingFee;
-	}
+    public void setNetworkType(String networkType) {
+        this.networkType = networkType;
+    }
 
-	public void setProcessingFee(double d) {
-		this.processingFee = d;
-	}
+    public double getProcessingFee() {
+        return processingFee;
+    }
 
-	public Outlet getOutletObj() {
-		return outletObj;
-	}
+    public void setProcessingFee(double d) {
+        this.processingFee = d;
+    }
 
-	public void setOutletObj(Outlet outletObj) {
-		this.outletObj = outletObj;
-	}
+    public Outlet getOutletObj() {
+        return outletObj;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setOutletObj(Outlet outletObj) {
+        this.outletObj = outletObj;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public LocalDate getActivationdate() {
-		return activationdate;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public void setActivationdate(LocalDate activationdate) {
-		this.activationdate = activationdate;
-	}
+    public LocalDate getActivationdate() {
+        return activationdate;
+    }
 
-
-//
-//	public List<Complaint> getComplaintsRaised() {
-//		return complaintsRaised;
-//	}
-//
-//	public void setComplaintsRaised(List<Complaint> complaintsRaised) {
-//		this.complaintsRaised = complaintsRaised;
-//	}
-	 
-	 
+    public void setActivationdate(LocalDate activationdate) {
+        this.activationdate = activationdate;
+    }
 }
-

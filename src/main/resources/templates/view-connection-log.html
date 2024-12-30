@@ -71,6 +71,7 @@
                         <th>Connection ID</th>
                         <th>Connection Type</th>
                         <th>Network Type</th>
+                        <th>Status</th>
                         <th>Change Date</th>
                     </tr>
                 </thead>
@@ -80,15 +81,11 @@
                         <td th:text="${connectionLog.connectionObj.connectionId}"></td>
                         <td th:text="${connectionLog.connectionType}"></td>
                         <td th:text="${connectionLog.networkType}"></td>
+                        <td th:text="${connectionLog.status}"></td>
                         <td th:text="${connectionLog.changedate}"></td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <!-- Message if Connection Log not found -->
-        <div th:if="${connectionLog == null}" class="alert alert-danger mt-4">
-            <strong>Warning!</strong> No connection log found with the provided Connection ID.
         </div>
 
         <!-- Button to go back to connection management -->
