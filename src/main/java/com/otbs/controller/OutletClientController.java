@@ -62,7 +62,9 @@ public class OutletClientController {
     @GetMapping("/findNearestOutlet")
     public String findNearestOutlet(@RequestParam(value = "location", required = false) String location, Model model) {
         if (location == null || location.isEmpty()) {
-            return "findNearestOutlet"; // Return the view without setting the error message
+            model.addAttribute("error", "Location parameter is missing.");
+            logger.error("Location parameter is missing.");
+            return "findNearestOutlet"; // Return the view with the error message
         }
 
         logger.info("Received request to find nearest outlet for location: {}", location);
