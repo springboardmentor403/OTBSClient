@@ -80,9 +80,9 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="activationDate" class="form-label">Activation Date</label>
-                <input type="date" id="activationDate" name="activationDate" class="form-control" 
-                       required th:field="*{activationDate}" 
+                <label for="activationdate" class="form-label">Activation Date</label>
+                <input type="date" id="activationdate" name="activationdate" class="form-control" 
+                       required th:field="*{activationdate}" 
                        pattern="\d{4}-\d{2}-\d{2}" 
                        min="${T(java.time.LocalDate).now()}">
             </div>
@@ -94,9 +94,13 @@
                 <label for="outletId" class="form-label">Outlet ID</label>
                 <input type="text" id="outletId" name="outletId" class="form-control" placeholder="Add outlet to know outlet ID" required>
             </div>
+
+            <!-- Visible status field with default value -->
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <input type="text" id="status" name="status" class="form-control" value="Active" readonly>
+            </div>
             
-            <!-- Hidden status field, defaulted to 'active' -->
-            <input type="hidden" id="status" name="status" value="active">
             <button type="submit" class="btn btn-primary">Activate Connection</button>
         </form>
         <a th:href="@{/connection-management}" class="btn btn-secondary btn-back">Go Back</a>

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Nearest Outlet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    
     <style>
         body {
             background-color: #f4f7fa;
@@ -39,7 +38,7 @@
         .mb-3 label {
             font-weight: bold;
         }
-        .alert-danger {
+        .alert {
             font-size: 1.2rem;
         }
     </style>
@@ -49,7 +48,7 @@
         <h1 class="text-center">Find Nearest Outlet</h1>
 
         <!-- Form to input location -->
-        <form th:action="@{/nearest}" method="get" class="mt-4">
+        <form th:action="@{/findNearestOutlet}" method="get" class="mt-4">
             <div class="mb-3">
                 <label for="location" class="form-label">Enter Your Location</label>
                 <input type="text" id="location" name="location" class="form-control" placeholder="Enter location" required>
@@ -78,9 +77,9 @@
             </table>
         </div>
 
-        <!-- Message if no outlet is found -->
-        <div th:if="${outlet == null}" class="alert alert-danger mt-4">
-            <strong>No outlet found!</strong> Please check the location and try again.
+        <!-- Error message if something goes wrong -->
+        <div th:if="${error != null}" class="alert alert-danger mt-4">
+            <strong>Error!</strong> <span th:text="${error}"></span>
         </div>
 
         <!-- Button to go back to connection management -->
