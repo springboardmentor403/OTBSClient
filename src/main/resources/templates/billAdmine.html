@@ -83,6 +83,27 @@
         table tr:hover {
             background-color: #f1f1f1;
         }
+
+        .home-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+
+        position:relative;
+        bottom: 60px;
+        }
+
+        .home-button:hover {
+        background-color: #0056b3;
+        }
+
         @media (max-width: 768px) {
             .container {
                 width: 95%;
@@ -92,12 +113,13 @@
                 padding: 10px;
             }
         }
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Revenue Details</h1>
-
+        <a th:href="@{/admindashboard}" class="home-button">Home</a>
         <!-- Filter Form -->
         <form id="filterForm" action="/revenue" method="GET">
             <div class="form-group">

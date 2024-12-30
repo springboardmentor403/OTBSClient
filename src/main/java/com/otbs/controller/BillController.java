@@ -35,13 +35,13 @@ public class BillController {
 
             List<Bill> billList = response.getBody();
             model.addAttribute("unpaidBills",billList);
-            session.setAttribute("unpaidBills", billList);
-            session.setAttribute("message", null );
+            // session.setAttribute("unpaidBills", billList);
+            // session.setAttribute("message", null );
 
         }
         catch(Exception e){
             model.addAttribute("message"," customer has no Bending bill ");
-            session.setAttribute("message", " customer has no Bending bill " );  
+            // session.setAttribute("message", " customer has no Bending bill " );  
         }
 
         return "unpaidbillView";    
@@ -55,13 +55,23 @@ public class BillController {
         model.addAttribute("allBills",allbillList);
 
         //Getting message 
-        String message = (String) session.getAttribute("message");
-        if(message == null){
-        //Getting Bills
-            List<Bill> billList =(List<Bill>) session.getAttribute("unpaidBills");
+        // String message = (String) session.getAttribute("message");
+        // if(message == null){
+        // //Getting Bills
+        //     List<Bill> billList =(List<Bill>) session.getAttribute("unpaidBills");
+        //     model.addAttribute("unpaidBills",billList);
+        // } 
+        // else model.addAttribute("message",message);
+        try{ 
+            ResponseEntity<List> unpaidbillresponse =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId+"/unpaid", List.class);
+
+            List<Bill> billList = unpaidbillresponse.getBody();
             model.addAttribute("unpaidBills",billList);
-        } 
-        else model.addAttribute("message",message);
+
+        }
+        catch(Exception e){
+            model.addAttribute("message"," customer has no Bending bill ");
+        }
         
         return "unpaidbillView";
     }
@@ -71,15 +81,15 @@ public class BillController {
         ResponseEntity<Bill> response =restTemplate.getForEntity(billBaseUrl+"/customer/"+billId+"/bill", Bill.class);
         Bill bill = (Bill) response.getBody();
         model.addAttribute("bill",bill);
-         
+        session.setAttribute("bill", bill.getBillId());
         return "billview";
     }
     
 
     @GetMapping("/paybill")
-    public String payBill(@RequestParam String billId, Model model, HttpSession session) {
+    public String payBill(@RequestParam String billId,@RequestParam String paymentMethod, Model model, HttpSession session) {
         // Call the backend API to process the payment
-        ResponseEntity<String> response = restTemplate.getForEntity(billBaseUrl + "/customer/" + billId + "/pay", String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity(billBaseUrl + "/pay/" + billId +"/"+paymentMethod, String.class);
         
         // Optional: Check the response and add attributes to the model
         if (response.getStatusCode().is2xxSuccessful()) {
@@ -87,25 +97,13 @@ public class BillController {
         } else {
             model.addAttribute("paymessage", "Payment failed for Bill ID: " + billId);
         }
-    
-        // Retrieve the updated list of unpaid bills
-        String customerId = (String) session.getAttribute("customerId");
-        try{ 
-            ResponseEntity<List> responsebill =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId+"/unpaid", List.class);
 
-            List<Bill> billList = responsebill.getBody();
-            model.addAttribute("unpaidBills",billList);
-            session.setAttribute("unpaidBills", billList);
-
-        }
-        catch(Exception e){
-            model.addAttribute("message"," customer has no Bending bill ");
-            session.setAttribute("unpaidBills",null);
-            session.setAttribute("message", " customer has no Bending bill " );  
-        }
-    
+        int billdetails= (int) session.getAttribute("bill");
+        ResponseEntity<Bill> billresponse =restTemplate.getForEntity(billBaseUrl+"/customer/"+billdetails+"/bill", Bill.class);
+        Bill bill = (Bill) billresponse.getBody();
+        model.addAttribute("bill",bill);
         // Return the same view or redirect as needed
-        return "unpaidbillView";
+        return "billView";
     }
 
 
@@ -139,7 +137,7 @@ public class BillController {
         } catch (Exception e) {
             model.addAttribute("message","NO Unpaid Bills Crosses Due Date");
         }
-        model.addAttribute("allunpaid","Unpaid Bills Crosses DueDate");
+        model.addAttribute("filterpaid","Unpaid Bills Crosses DueDate");
         return "adminebillenquiry";
     }
     
@@ -167,9 +165,5 @@ public class BillController {
         System.out.println("revenue executed");
         return "billAdmine";
     }
-
-
-    
-    
  
 }

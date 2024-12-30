@@ -76,14 +76,14 @@
 </head>
 <body>
     <div class="header-container" th:if="${allunpaid}">
-        <button >Home</button>
+        <button onclick="location.href='/admindashboard'">Home</button>
         <h2 th:text="${allunpaid}">Unpaid Bills</h2>
         <button onclick="location.href='/billcrossesduedate'">Bill Crosses Due Date</button>
     </div>
     <div class="header-container" th:if="${filterpaid}">
-        <button >Home</button>
+        <button onclick="location.href='/admindashboard'">Home</button>
         <h2 th:text="${filterpaid}">Filtered Unpaid Bills</h2>
-        <button onclick="location.href='/allunpaidbills'">Unpaid Bills</button>
+        <button onclick="location.href='/allunpaidbills'">All Unpaid Bills</button>
     </div>
     
     <div class="billtable" th:if="${allUnpaidBills}">

@@ -12,8 +12,10 @@
     <div class="unpaidBill">
         <div class="heading">
             <h1>BILL SUMMARY</h1>
+            <a th:href="@{/clintdashboard}" class="home-button">Home</a>
         </div>
-        <div th:if="${paymessage}" class="payalert" th:text="${paymessage}"> Notification </div>
+
+        <!-- <div th:if="${paymessage}" class="payalert" th:text="${paymessage}"> Notification </div> -->
 
         <div class="bills" >
             <div th:if="${message}" class="alert alert-info" th:text="${message}"> No Bill Available </div>
@@ -41,7 +43,7 @@
                         <td>
                             <button class="billButtons">Download Bill</button>
                             <button class="billButtons">
-                                <a th:href="@{/paybill(billId=${bills.billId})}">Pay Bill</a>
+                                <a th:href="@{/viewbill(billId=${bills.billId})}">Pay Bill</a>
                             </button>
                         </td>
                     </tr>

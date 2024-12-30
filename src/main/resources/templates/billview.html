@@ -115,79 +115,100 @@
     .hidden {
       display: none;
     }
+  .pay-message {
+  font-family: 'Arial', sans-serif;
+  color: #4CAF50;
+  font-size: 24px;
+  text-align: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
   </style>
 </head>
 <body>
-    <div class="container">
-        <a href="/home" class="home-button">Home</a>
-        <h2>Customer Bill Details</h2>
-        <div class="bill-details" th:if="${bill}">
-            <table>
-                <tr>
-                    <th>Bill ID</th>
-                    <td th:text="${bill.billId}">12345</td>
-                </tr>
-                <tr>
-                    <th>Customer Name</th>
-                    <td th:text="${bill.usage.connection.customerObj.name}">John Doe</td>
-                </tr>
-                <tr>
-                    <th>Plan</th>
-                    <td th:text="${bill.usage.connection.plan.planName}">Premium Plan</td>
-                </tr>
-                <tr>
-                    <th>Bill Generated Date</th>
-                    <td th:text="${bill.date}">2024-12-01</td>
-                </tr>
-                <tr>
-                    <th>Due Date</th>
-                    <td th:text="${bill.dueDate}">2024-12-15</td>
-                </tr>
-                <tr>
-                    <th>Plan Charges</th>
-                    <td th:text="'₹' + ${bill.usage.connection.plan.fixedRate}">₹100</td>
-                </tr>
-                <tr>
-                    <th>Additional Charges</th>
-                    <td th:text="'₹' + ${bill.additionalCharges}">₹100</td>
-                </tr>
-                <tr>
-                    <th>Discount</th>
-                    <td th:text="'₹' + ${bill.discount}">₹50</td>
-                </tr>
-                <tr>
-                    <th>Tax</th>
-                    <td th:text="'₹' + ${bill.tax}">₹75</td>
-                </tr>
-                <tr>
-                    <th>Total Amount</th>
-                    <td th:text="'₹' + ${bill.totalAmount}">₹1125</td>
-                </tr>
-                <tr>
-                    <th>Status</th>
-                    <td th:text="${bill.status}">Unpaid</td>
-                </tr>
-            </table>
-        </div>
-        <div class="payment-methods">
-            <label><input type="radio" name="paymentMethod" value="creditCard"> Credit Card</label>
-            <label><input type="radio" name="paymentMethod" value="debitCard"> Debit Card</label>
-            <label><input type="radio" name="paymentMethod" value="upi"> UPI</label>
-        </div>
-        <a href="#" id="payButton" class="pay-button hidden">Pay Now</a>
-    </div>
+  <div>
+      <h2 th:if="${paymessage}" th:text="${paymessage}" class="pay-message">success notification</h2>
+  </div>
+  <div class="container">
+      <a th:href="@{/allBills}" class="home-button">Home</a>
+      <h2>Customer Bill Details</h2>
+      <div class="bill-details" th:if="${bill}">
+          <table>
+              <tr>
+                  <th>Bill ID</th>
+                  <td th:text="${bill.billId}" id="billid">12345</td>
+              </tr>
+              <tr>
+                  <th>Customer Name</th>
+                  <td th:text="${bill.usage.connection.customerObj.name}">John Doe</td>
+              </tr>
+              <tr>
+                  <th>Plan</th>
+                  <td th:text="${bill.usage.connection.plan.planName}">Premium Plan</td>
+              </tr>
+              <tr>
+                  <th>Bill Generated Date</th>
+                  <td th:text="${bill.date}">2024-12-01</td>
+              </tr>
+              <tr>
+                  <th>Due Date</th>
+                  <td th:text="${bill.dueDate}">2024-12-15</td>
+              </tr>
+              <tr>
+                  <th>Plan Charges</th>
+                  <td th:text="'₹' + ${bill.usage.connection.plan.fixedRate}">₹100</td>
+              </tr>
+              <tr>
+                  <th>Additional Charges</th>
+                  <td th:text="'₹' + ${bill.additionalCharges}">₹100</td>
+              </tr>
+              <tr>
+                  <th>Discount</th>
+                  <td th:text="'₹' + ${bill.discount}">₹50</td>
+              </tr>
+              <tr>
+                  <th>Tax</th>
+                  <td th:text="'₹' + ${bill.tax}">₹75</td>
+              </tr>
+              <tr>
+                  <th>Total Amount</th>
+                  <td th:text="'₹' + ${bill.totalAmount}">₹1125</td>
+              </tr>
+              <tr>
+                  <th>Status</th>
+                  <td th:text="${bill.status}">Unpaid</td>
+              </tr>
+          </table>
+      </div>
+      <div class="payment-methods" th:if="${bill.status} == 'unpaid'">
+          <label><input type="radio" name="paymentMethod" value="creditCard"> Credit Card</label>
+          <label><input type="radio" name="paymentMethod" value="debitCard"> Debit Card</label>
+          <label><input type="radio" name="paymentMethod" value="upi"> UPI</label>
+      </div>
+      <a id="payButton" class="pay-button hidden">Pay Now</a>
+  </div>
 
-    <script>
-        const paymentMethods = document.getElementsByName('paymentMethod');
-        const payButton = document.getElementById('payButton');
+  <script>
+      // Pass the billId from Thymeleaf to JavaScript
 
-        paymentMethods.forEach(method => {
-            method.addEventListener('change', () => {
-                payButton.classList.remove('hidden');
-                const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-                payButton.href = `/paybill/${bill.billId}?method=${selectedMethod}`;
-            });
-        });
-    </script>
+      const headerElement = document.getElementById('billid'); 
+      const billValue = headerElement.textContent;
+      const billId = billValue; // Default value for fallback
+      const paymentMethods = document.getElementsByName('paymentMethod');
+      const payButton = document.getElementById('payButton');
+
+      paymentMethods.forEach(method => {
+          method.addEventListener('change', () => {
+              payButton.classList.remove('hidden');
+              const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+              // Dynamically set the href for the Pay Now button
+              payButton.href = `/paybill?billId=${billId}&paymentMethod=${selectedMethod}`;
+          });
+      });
+  </script>
 </body>
 </html>
