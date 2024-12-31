@@ -1,20 +1,19 @@
 package com.otbs.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
 public class Customer {
 	
-    private int id;
-    public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+    // private int id;
+    // public int getId() {
+	// 	return id;
+	// }
+	// public void setId(int id) {
+	// 	this.id = id;
+	// }
+	private int customerId;
+	
 	public String getName() {
 		return name;
 	}
@@ -71,5 +70,13 @@ public class Customer {
     private String password;
     private String dob;
     private String gender;
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
     
 }

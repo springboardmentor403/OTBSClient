@@ -179,11 +179,11 @@
               </tr>
               <tr>
                   <th>Status</th>
-                  <td th:text="${bill.status}">Unpaid</td>
+                  <td th:text="${bill.status}">paid</td>
               </tr>
           </table>
       </div>
-      <div class="payment-methods" th:if="${bill.status} == 'unpaid'">
+      <div class="payment-methods" th:if="${bill.status}=='unpaid' " >
           <label><input type="radio" name="paymentMethod" value="creditCard"> Credit Card</label>
           <label><input type="radio" name="paymentMethod" value="debitCard"> Debit Card</label>
           <label><input type="radio" name="paymentMethod" value="upi"> UPI</label>

@@ -1,6 +1,7 @@
 package com.otbs.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,8 +77,14 @@ public class CustomerClientController {
             );
 
             if (response.getStatusCode().is2xxSuccessful()) {
-                Customer customer = restTemplate.getForObject(customerBaseUrl + "/" + username, Customer.class);
+                Customer customer = restTemplate.getForObject(customerBaseUrl + "/" + username, Customer.class);                 
+
+                ResponseEntity<Integer> responsecus = restTemplate.getForEntity(customerBaseUrl + "/customerId/" + username, Integer.class);
+                int customerid =responsecus.getBody();
+                session.setAttribute("customerId", customerid);
+                
                 session.setAttribute("loggedInCustomer", customer);
+                System.out.println("customerId--------------------------------------" + customerid);
                 return "redirect:/dashboard";
             } else {
                 model.addAttribute("error", "Invalid username or password");
@@ -102,7 +109,6 @@ public class CustomerClientController {
         }
         return "redirect:/profiledetails";
     }
-
 
     // Show dashboard for logged-in customer
     @GetMapping("/dashboard")

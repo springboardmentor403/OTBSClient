@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.otbs.model.Bill;
+import com.otbs.model.Customer;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -28,11 +29,12 @@ public class BillController {
     private String billBaseUrl;
 
     @GetMapping("/unpaidBills")
-    public String unpaidBills(@RequestParam String customerId,Model model,HttpSession session) {
-        session.setAttribute("customerId",customerId);
+    public String unpaidBills(Model model,HttpSession session) {
+        int customerId= (int) session.getAttribute("customerId");
+        System.out.println("Customerid ----------this fromn the billview section -------------------------------"+customerId);
+        // session.setAttribute("customerId",customerId);
         try{ 
             ResponseEntity<List> response =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId+"/unpaid", List.class);
-
             List<Bill> billList = response.getBody();
             model.addAttribute("unpaidBills",billList);
             // session.setAttribute("unpaidBills", billList);
@@ -49,19 +51,11 @@ public class BillController {
 
     @GetMapping("/allBills")
     public String allBills(Model model,HttpSession session) {
-        String customerId=(String) session.getAttribute("customerId");
+        int customerId= (int) session.getAttribute("customerId");
         ResponseEntity<List> response =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId, List.class);
         List allbillList = response.getBody();
         model.addAttribute("allBills",allbillList);
 
-        //Getting message 
-        // String message = (String) session.getAttribute("message");
-        // if(message == null){
-        // //Getting Bills
-        //     List<Bill> billList =(List<Bill>) session.getAttribute("unpaidBills");
-        //     model.addAttribute("unpaidBills",billList);
-        // } 
-        // else model.addAttribute("message",message);
         try{ 
             ResponseEntity<List> unpaidbillresponse =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId+"/unpaid", List.class);
 
