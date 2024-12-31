@@ -58,7 +58,7 @@
         <form th:action="@{/add-connection}" th:object="${connection}" method="post" class="mt-4" onsubmit="validateForm(event)">
             <div class="mb-3">
                 <label for="customerId" class="form-label">Customer ID</label>
-                <input type="text" id="customerId" name="customerId" class="form-control" required>
+                <input type="text" id="customerObj.customerId" name="customerObj.customerId" class="form-control" required>
             </div>
             
             <div class="mb-3">
@@ -83,16 +83,15 @@
                 <label for="activationdate" class="form-label">Activation Date</label>
                 <input type="date" id="activationdate" name="activationdate" class="form-control" 
                        required th:field="*{activationdate}" 
-                       pattern="\d{4}-\d{2}-\d{2}" 
-                       min="${T(java.time.LocalDate).now()}">
+                   >
             </div>
             <div class="mb-3">
                 <label for="planId" class="form-label">Plan ID</label>
-                <input type="text" id="planId" name="planId" class="form-control" placeholder="Select plan before applying for connection" required>
+                <input type="text" id="plan.planId" name="plan.planId" class="form-control" placeholder="Select plan before applying for connection" required>
             </div>
             <div class="mb-3">
                 <label for="outletId" class="form-label">Outlet ID</label>
-                <input type="text" id="outletId" name="outletId" class="form-control" placeholder="Add outlet to know outlet ID" required>
+                <input type="text" id="outletObj.outletId" name="outletObj.outletId" class="form-control" placeholder="Add outlet to know outlet ID" required>
             </div>
 
             <!-- Visible status field with default value -->

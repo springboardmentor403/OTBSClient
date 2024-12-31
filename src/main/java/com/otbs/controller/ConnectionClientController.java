@@ -51,10 +51,12 @@ public class ConnectionClientController {
 
     @PostMapping("/add-connection")
     public String addNewConnection(@ModelAttribute Connection connection, Model model) {
+    	System.out.println("print connection");
         try {
             ResponseEntity<Connection> response = restTemplate.postForEntity(connectionBaseUrl + "/activate", connection, Connection.class);
             model.addAttribute("message", "Connection activated successfully! Connection ID: " + response.getBody().getConnectionId());
         } catch (Exception e) {
+        	e.printStackTrace();
             model.addAttribute("error", "Failed to activate connection: " + e.getMessage());
         }
         return "activation-success";
