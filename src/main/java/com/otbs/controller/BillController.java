@@ -2,6 +2,7 @@ package com.otbs.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,10 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.otbs.model.Bill;
-import com.otbs.model.Customer;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -100,6 +101,24 @@ public class BillController {
         return "billView";
     }
 
+    @GetMapping("/api/config/base-url")
+    @ResponseBody
+    public Map<String, String> getBaseUrl() {
+        return Map.of("baseUrl", billBaseUrl);
+    }
+
+    //pdf generation 
+
+    @GetMapping("/pdfdownload")
+    public byte[] getMethodName(@RequestParam int billId) {
+        ResponseEntity<byte[]> pdf = restTemplate.getForEntity(billBaseUrl + "/download/" + billId, byte[].class);
+        
+        byte[] billpdf = pdf.getBody();
+        return billpdf;
+    }
+    
+    
+    
 
     // --------------------------Admine controller ----------------------------------------------------
     
@@ -159,5 +178,4 @@ public class BillController {
         System.out.println("revenue executed");
         return "billAdmine";
     }
- 
 }
