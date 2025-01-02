@@ -1,6 +1,7 @@
 package com.otbs.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.otbs.model.Plan;
 
@@ -46,22 +53,61 @@ public class PlanClientController {
             ResponseEntity<List> response = restTemplate.getForEntity(planBasedUrl + "/getAll", List.class);
             List plans = response.getBody();
             model.addAttribute("listOfPlans", plans);
-        } catch (Exception e) {
-            model.addAttribute("error", "Failed to fetch plans: " + e.getMessage());
+        } catch (HttpClientErrorException |HttpServerErrorException e) {
+        	
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	           model.addAttribute("error","Failed to fetch plans: "+ errors);
+        	
+//	        String responseBody = e.getResponseBodyAsString();
+//	        // Extract the message part manually (basic approach)
+//	        String errorMessage = responseBody.replace("{\"message\":\"", "").replace("\"}", "");
+//	        model.addAttribute("error","Failed to fetch plans : "+ errorMessage);
+//	    }  
+//        catch (Exception e) {
+//            model.addAttribute("error", "Failed to fetch plans: " + e.getMessage());
         }
         return "viewAllPlans";
     }
 
+	
+	
+//	@GetMapping("/searchById")
+//    public String searchPlanById(@RequestParam("planId") int planId, Model model) {
+//        try {
+//            ResponseEntity<Plan> response = restTemplate.getForEntity(planBasedUrl + "/getId/" + planId, Plan.class);
+//            model.addAttribute("plan", response.getBody());
+//        } catch (Exception e) {
+//            model.addAttribute("error", "Plan not found: " + e.getMessage());
+//        }
+//        return "searchResultPlan";
+//    }
+	
+	
 	@GetMapping("/searchById")
-    public String searchPlanById(@RequestParam("planId") int planId, Model model) {
-        try {
-            ResponseEntity<Plan> response = restTemplate.getForEntity(planBasedUrl + "/getId/" + planId, Plan.class);
-            model.addAttribute("plan", response.getBody());
-        } catch (Exception e) {
-            model.addAttribute("error", "Plan not found: " + e.getMessage());
-        }
-        return "searchResultPlan";
-    }
+	public String searchPlanById(@RequestParam("planId") int planId, Model model) {
+	    try {
+	        ResponseEntity<Plan> response = restTemplate.getForEntity(planBasedUrl + "/getId/" + planId, Plan.class);
+	        model.addAttribute("plan", response.getBody());
+	    } 
+	        catch (HttpClientErrorException |HttpServerErrorException e) {
+	        	Map<String, String> errors=null;
+	        	try {
+	        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+	        		} catch (JsonProcessingException e1) {
+	        					e1.printStackTrace();
+	        			}
+	        	           model.addAttribute("error", "Failed to fetch plan: " +errors);
+	        	
+//	        model.addAttribute("error", "An unexpected error occurred: " + e.getMessage());
+	    }
+	    return "searchResultPlan";
+	}
+
 
 	
 	@GetMapping("/searchByName")
@@ -69,63 +115,193 @@ public class PlanClientController {
         try {
             ResponseEntity<Plan> response = restTemplate.getForEntity(planBasedUrl + "/getName/" + planName, Plan.class);
             model.addAttribute("plan", response.getBody());
-        } catch (Exception e) {
-            model.addAttribute("error", "Plan not found: " + e.getMessage());
-        }
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	          model.addAttribute("error", "Failed to fetch plan: " +errors);
+	    }  
         return "searchResultPlan";
+    }
+	
+	
+	@GetMapping("/searchByFixedRate")
+    public String searchPlanByName(@RequestParam("fixedRate") double fixedRate, Model model) {
+        try {
+            ResponseEntity<List> response = restTemplate.getForEntity(planBasedUrl + "/fixed-rate/"+fixedRate, List.class);
+            List plans = response.getBody();
+            model.addAttribute("listOfPlans", plans);
+            model.addAttribute("searchCriteria", "Fixed Rate: " + fixedRate);
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+	    }  
+        return "viewAllPlans";
     }
 	
 
-	@GetMapping("/searchByFixedRate")
-    public String searchPlanByName(@RequestParam("FixedRate") double FixedRate, Model model) {
+	@GetMapping("/searchByPlanGroup")
+    public String searchPlanByGroup(@RequestParam("planGroup") String planGroup, Model model) {
         try {
-            ResponseEntity<Plan> response = restTemplate.getForEntity(planBasedUrl + "/fixed-rate/" + FixedRate, Plan.class);
-            model.addAttribute("plan", response.getBody());
-        } catch (Exception e) {
-            model.addAttribute("error", "Plan not found: " + e.getMessage());
-        }
-        return "searchResultPlan";
+            ResponseEntity<List> response = restTemplate.getForEntity(planBasedUrl + "/plan-group/"+planGroup, List.class);
+            List plans = response.getBody();
+            model.addAttribute("listOfPlans", plans);
+            model.addAttribute("searchCriteria", "Fixed Rate: " + planGroup);
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+	    }  
+        return "viewAllPlans";
+    }
+	
+	@GetMapping("/searchByDataLimit")
+    public String searchPlanByDataLimit(@RequestParam("dataLimit") String dataLimit, Model model) {
+        try {
+            ResponseEntity<List> response = restTemplate.getForEntity(planBasedUrl + "/data-limit/"+dataLimit, List.class);
+            List plans = response.getBody();
+            model.addAttribute("listOfPlans", plans);
+            model.addAttribute("searchCriteria", "Fixed Rate: " + dataLimit);
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+	    }  
+        return "viewAllPlans";
     }
 	
 	
-//	@PostMapping("/addPlan")
-//	public String addNewPlan(@ModelAttribute Plan plan, Model model) {
-//	    try {
-//	        String url = planBasedUrl + "/add";
-//	        restTemplate.postForObject(url, plan, Plan.class);
-//	        model.addAttribute("message", "Plan added successfully!");
-//	    } catch (Exception e) {
-//	        model.addAttribute("error", "Failed to add plan: " + e.getMessage());
-//	    }
-//	    return "addPlan";
-//	}
+	@GetMapping("/searchByNumberOfDay")
+    public String searchPlanByNumberOfDays(@RequestParam("numberOfDay") int numberOfDay, Model model) {
+        try {
+            ResponseEntity<List> response = restTemplate.getForEntity(planBasedUrl + "/days/"+numberOfDay, List.class);
+            List plans = response.getBody();
+            model.addAttribute("listOfPlans", plans);
+            model.addAttribute("searchCriteria", "Fixed Rate: " + numberOfDay);
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+	    }  
+        return "viewAllPlans";
+    }
 	
 	
+	@GetMapping("/searchByStatus")
+    public String searchPlanByStatus(@RequestParam("status") String status,Model model) {
+        try {
+            ResponseEntity<List> response = restTemplate.getForEntity(planBasedUrl + "/status/"+status, List.class);
+            List plans = response.getBody();
+            model.addAttribute("listOfPlans", plans);
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+        }
+        return "viewAllPlans";
+    }
 	
-	@PostMapping("/addPlan")
+	
+	@PostMapping("/addForm")
+	public String From() {
+		return "addPlan";
+	}
+	
+	@PostMapping("/addNewPlan")
     public String addNewPlan(@ModelAttribute Plan plan, Model model) {
         try {
             ResponseEntity<Plan> response = restTemplate.postForEntity(planBasedUrl + "/add", plan, Plan.class);
             model.addAttribute("message", "Plan added successfully! Plan ID: " + response.getBody().getPlanId());
-        } catch (Exception e) {
-            model.addAttribute("error", "Failed to add plan: " + e.getMessage());
-        }
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	           model.addAttribute("error", "Failed to fetch plan: " +errors);
+	    } 
         return "addPlan";
     }
 	
 	
-	@PostMapping("/updatePlan")
+	@PostMapping("/updateForm")
+	public String updateYourPlan() {
+		return "updatePlan";
+	}
+	
+	
+	@GetMapping("/fetchPlanById")
+    public String fetchPlanById(@RequestParam("planId") int planId, Model model) {
+        try {
+            ResponseEntity<Plan> response = restTemplate.getForEntity(planBasedUrl + "/getId/" + planId, Plan.class);
+            model.addAttribute("plan", response.getBody());
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+//        	catch (HttpClientErrorException |HttpServerErrorException e) {
+        	
+            	Map<String, String> errors=null;
+            	try {
+            			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+            		} catch (JsonProcessingException e1) {
+            					e1.printStackTrace();
+            		}
+            	           model.addAttribute("error", "Failed to update plan: " + errors);
+    	    } 
+//        	Map<String, String> errors=null;
+//        	try {
+//        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+//        		} catch (JsonProcessingException e1) {
+//        					e1.printStackTrace();
+//        			}
+//        	model.addAttribute("error", errors);
+//	    } 
+        return "updatePlan";
+    }
+	
+	
+	
+	@PostMapping("/updatePresentPlan")
     public String updatePlan(@RequestParam int planId, @ModelAttribute Plan plan, Model model) {
         try {
             String url = planBasedUrl + "/updateById/" + planId;
             ResponseEntity<Plan> response = restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(plan), Plan.class);
             model.addAttribute("message", "Plan updated successfully!");
-        } catch (Exception e) {
-            model.addAttribute("error", "Failed to update plan: " + e.getMessage());
+        } 
+        catch (HttpClientErrorException | HttpServerErrorException e) {
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	           model.addAttribute("error", "Failed to update plan: " +errors);
         }
         return "updatePlan";
     }
-	
 	
 	
 	@PostMapping("/deletePlan")
@@ -134,11 +310,16 @@ public class PlanClientController {
             String url = planBasedUrl + "/deleteById/" + planId;
             restTemplate.delete(url);
             model.addAttribute("message", "Plan deleted successfully!");
-        } catch (Exception e) {
-            model.addAttribute("error", "Failed to delete plan: " + e.getMessage());
-        }
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+        	Map<String, String> errors=null;
+        	try {
+        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+        		} catch (JsonProcessingException e1) {
+        					e1.printStackTrace();
+        			}
+        	           model.addAttribute("error", "Failed to delet plan: " +errors);
+	    } 
         return "deletePlan";
     }
-	
-	
+		
 }
