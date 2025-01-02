@@ -80,18 +80,20 @@
         }
     </style>
     <script>
-        function toggleEditMode() {
-            const inputs = document.querySelectorAll('.profile-section input, .profile-section select');
-            const editButton = document.getElementById('editButton');
-            const updateButton = document.getElementById('updateButton');
+		function toggleEditMode() {
+				    const inputs = document.querySelectorAll('.profile-section input, .profile-section select');
+				    const editButton = document.getElementById('editButton');
+				    const updateButton = document.getElementById('updateButton');
 
-            if (editButton.style.display !== 'none') {
-                // Enable editing
-                inputs.forEach(input => input.disabled = false);
-                editButton.style.display = 'none';
-                updateButton.style.display = 'inline-block';
-            }
-        }
+				    // Enable editing of fields except for username and password
+				    inputs.forEach(input => {
+				        if (input.id !== 'username' && input.id !== 'password') {
+				            input.disabled = false;
+				        }
+				    });
+				    editButton.style.display = 'none';
+				    updateButton.style.display = 'inline-block';
+				}
 
         function saveDetails() {
             document.getElementById('profileForm').submit();

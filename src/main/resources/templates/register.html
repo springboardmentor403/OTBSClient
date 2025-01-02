@@ -94,6 +94,18 @@
         .login-message a:hover {
             text-decoration: underline;
         }
+		
+		.message {
+			margin-top: 20px;
+			text-align: center;
+			font-size: 16px;
+		}
+		.success-message {
+			color: green;
+		}
+		.error-message {
+			color: red;
+		}
     </style>
 </head>
 <body>
@@ -145,11 +157,15 @@
             </div>
             <button type="submit">Register</button>
         </form>
-		<div>
+		
 		    <div th:if="${message}" class="message success-message" style="color: green; text-align: center; margin-bottom: 20px;">
 		        <p th:text="${message}"></p>
 		    </div>
+			<!-- Error message -->
+			<div th:if="${error}" class="message error-message">
+				<p th:text="${error}"></p>
 		</div>
+		
     </div>
     <div class="login-message">
         <p>Already registered? <a th:href="@{/login}">Login</a></p>

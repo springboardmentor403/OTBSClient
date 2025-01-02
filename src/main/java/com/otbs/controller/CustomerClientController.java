@@ -40,8 +40,26 @@ public class CustomerClientController {
     // Register a customer
     @PostMapping("/register")
     public String registerCustomer(Customer customer, Model model) {
-        restTemplate.postForObject(customerBaseUrl + "/register", customer, Customer.class);
-        model.addAttribute("message", "Registration successful!");
+        try {
+            // Call backend API to register the customer
+            ResponseEntity<String> response = restTemplate.postForEntity(customerBaseUrl + "/register", customer, String.class);
+
+            // Success response
+            if (response.getStatusCode().is2xxSuccessful()) {
+                model.addAttribute("message", "Registration successful!");
+            } else {
+                model.addAttribute("error", "An unexpected error occurred. Please try again.");
+            }
+        } catch (Exception e) {
+            // Handle error responses
+            String errorMessage = "An error occurred during registration.";
+            if (e.getMessage().contains("Username already exists")) {
+                errorMessage = "Username already exists.";
+            } else if (e.getMessage().contains("Email already exists")) {
+                errorMessage = "Email already exists.";
+            }
+            model.addAttribute("error", errorMessage);
+        }
         return "register";
     }
     
