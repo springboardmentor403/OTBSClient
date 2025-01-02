@@ -94,6 +94,18 @@
         .login-message a:hover {
             text-decoration: underline;
         }
+		
+		.message {
+			margin-top: 20px;
+			text-align: center;
+			font-size: 16px;
+		}
+		.success-message {
+			color: green;
+		}
+		.error-message {
+			color: red;
+		}
     </style>
 </head>
 <body>
@@ -115,7 +127,7 @@
                 </div>
                 <div>
                     <label>Phone Number:</label>
-                    <input type="text" th:field="*{phoneNumber}" pattern="[0-9]{10}" placeholder="Enter your phone number" required/>
+                    <input type="text" th:field="*{phoneNumber}" placeholder="Enter your phone number" required/>
                 </div>
                 <div>
                     <label>Address:</label>
@@ -145,11 +157,15 @@
             </div>
             <button type="submit">Register</button>
         </form>
-		<div>
+		
 		    <div th:if="${message}" class="message success-message" style="color: green; text-align: center; margin-bottom: 20px;">
 		        <p th:text="${message}"></p>
 		    </div>
+			<!-- Error message -->
+			<div th:if="${error}" class="message error-message">
+				<p th:text="${error}"></p>
 		</div>
+		
     </div>
     <div class="login-message">
         <p>Already registered? <a th:href="@{/login}">Login</a></p>

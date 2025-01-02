@@ -13,10 +13,11 @@
                     Manage your account, view bills, make payments, and track your usage!
                 </p>
                 <div class="mt-4">
-                    <button class="btn btn-primary" th:onclick="'window.location.href=/profile'">View Profile</button>
-                    <button class="btn btn-secondary" th:onclick="'window.location.href=/bills'">View Bills</button>
-                    <button class="btn btn-success" th:onclick="'window.location.href=/payment'">Make Payment</button>
-                    <button class="btn btn-info" th:onclick="'window.location.href=/usage'">Track Usage</button>
+					<a class="btn btn-primary" th:href="@{/profiledetails(username=${customer.username})}">View Profile</a>
+
+                    <a class="btn btn-secondary" th:href="@{/unpaidBills}">View Bills</a>
+                    <a class="btn btn-success" th:href="@{/payment}">Make Payment</a>
+                    <a class="btn btn-info" th:href="@{/usage}">Track Usage</a>
                 </div>
             </div>
         </div>
