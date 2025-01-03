@@ -201,9 +201,11 @@
                 <button type="submit">Search</button>
             </form>
         </div>
+		
+		
 
         <!-- Add Plan -->
-        <div class="section">
+        <div th:if="${role == 'admin'}" class="section">
             <h2>Add Plan</h2>
             <form th:action="@{/plan/addForm}" method="post">
                 <button type="submit">Add Plan</button>
@@ -211,7 +213,7 @@
         </div>
 
         <!-- Update Plan -->
-        <div class="section">
+        <div th:if="${role == 'admin'}" class="section">
             <h2>Update Plan</h2>
             <form th:action="@{/plan/updateForm}" method="post">
                 <button type="submit">Update Plan</button>
@@ -219,7 +221,7 @@
         </div>
 
         <!-- Delete Plan -->
-        <div class="section">
+        <div th:if="${role == 'admin'}" class="section">
             <h2>Delete Plan</h2>
             <form th:action="@{/plan/deletePlan}" method="post">
                 <div class="form-group">

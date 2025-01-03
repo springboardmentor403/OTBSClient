@@ -75,12 +75,17 @@
 </head>
 <body>
     <div class="container">
-		<!-- Display error message 
-		<div th:if="${error !=null}" class="message-error">
+		<!--Dsplay Error Message
+		<div th:if="${error}" class="message-error">
+ 	       <p th:text="${error}"></p>
+		</div>   -->
+		
+		<!-- Display error message -->
+		<div th:if="${error != null}" class="message-error">
 			<ul>
 				<li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>
 			</ul>
-		</div>	-->
+		</div>	
         <h1>Search Result</h1>
         <!-- Display plan details -->
         <div class="details" th:if="${plan}">
@@ -103,12 +108,6 @@
                 <strong>Extra Charge per SMS :</strong> <span th:text="${plan.extraChargePerSMS}"></span>
             </p>
         </div>
-
-     
-        <div th:if="${error}" class="message-error">
-            <p th:text="${error}"></p>
-        </div>
-		
 
         <!-- Buttons -->
         <div class="button-group">

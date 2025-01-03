@@ -49,14 +49,21 @@ public class BillController {
 
         return "unpaidbillView";    
     }
-
+    
+    
+    
     @GetMapping("/allBills")
     public String allBills(Model model,HttpSession session) {
         int customerId= (int) session.getAttribute("customerId");
-        ResponseEntity<List> response =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId, List.class);
-        List allbillList = response.getBody();
-        model.addAttribute("allBills",allbillList);
-
+        try{
+            ResponseEntity<List> response =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId, List.class);
+            List allbillList = response.getBody();
+            model.addAttribute("allBills",allbillList);    
+        }
+        catch(Exception e){
+            model.addAttribute("allmessage"," You Are New Customer ");
+        }
+       
         try{ 
             ResponseEntity<List> unpaidbillresponse =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId+"/unpaid", List.class);
 
@@ -67,9 +74,33 @@ public class BillController {
         catch(Exception e){
             model.addAttribute("message"," customer has no Bending bill ");
         }
+        model.addAttribute("allbill"," true ");
         
         return "unpaidbillView";
     }
+    
+    
+
+//    @GetMapping("/allBills")
+//    public String allBills(Model model,HttpSession session) {
+//        int customerId= (int) session.getAttribute("customerId");
+//        ResponseEntity<List> response =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId, List.class);
+//        List allbillList = response.getBody();
+//        model.addAttribute("allBills",allbillList);
+//
+//        try{ 
+//            ResponseEntity<List> unpaidbillresponse =restTemplate.getForEntity(billBaseUrl+"/customer"+"/"+customerId+"/unpaid", List.class);
+//
+//            List<Bill> billList = unpaidbillresponse.getBody();
+//            model.addAttribute("unpaidBills",billList);
+//
+//        }
+//        catch(Exception e){
+//            model.addAttribute("message"," customer has no Bending bill ");
+//        }
+//        
+//        return "unpaidbillView";
+//    }
 
     @GetMapping("/viewbill")
     public String getbill(@RequestParam String billId, Model model, HttpSession session) {

@@ -18,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.otbs.model.Customer;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class AdminClientController {
 
@@ -36,7 +38,7 @@ public class AdminClientController {
     public String login(
             @RequestParam String username,
             @RequestParam String password,
-            Model model) {
+            Model model, HttpSession session) {
         String loginUrl = adminBaseUrl + "/login";
 
         // Create a request body with username and password
@@ -57,6 +59,7 @@ public class AdminClientController {
             );
 
             if (response.getStatusCode().is2xxSuccessful()) {
+            	session.setAttribute("role", "admin");
                 return "redirect:/admindashboard";
             } else {
                 model.addAttribute("error", "Invalid username or password");

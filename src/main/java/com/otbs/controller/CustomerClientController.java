@@ -102,6 +102,7 @@ public class CustomerClientController {
                 session.setAttribute("customerId", customerid);
                 
                 session.setAttribute("loggedInCustomer", customer);
+                session.setAttribute("role", "customer");
                 System.out.println("customerId--------------------------------------" + customerid);
                 return "redirect:/dashboard";
             } else {

@@ -25,6 +25,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.otbs.model.Plan;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/plan")
 public class PlanClientController {
@@ -42,7 +44,9 @@ public class PlanClientController {
 	}
 	
 	@GetMapping("/manage")
-	public String planManagement() {
+	public String planManagement(Model model, HttpSession session) {
+		String role=(String)session.getAttribute("role");
+		model.addAttribute("role",role);
 		return "managePlan";
 	}
 	
