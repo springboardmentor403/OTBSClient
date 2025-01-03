@@ -38,9 +38,6 @@
         .mb-3 label {
             font-weight: bold;
         }
-        .alert {
-            font-size: 1.2rem;
-        }
     </style>
 </head>
 <body>
@@ -75,11 +72,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <!-- Error message if something goes wrong -->
-        <div th:if="${error != null}" class="alert alert-danger mt-4">
-            <strong>Error!</strong> <span th:text="${error}"></span>
         </div>
 
         <!-- Button to go back to connection management -->
