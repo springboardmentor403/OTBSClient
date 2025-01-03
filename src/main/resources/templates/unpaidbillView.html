@@ -50,6 +50,18 @@
         }
     }
     </script>
+    <style>
+        .all-alert{
+            background-color: #17a2b8;
+            padding: 15px;
+            border-radius: 6px;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+            height: 100px;
+            padding-top: 10%;
+        }
+    </style>
 </head>
 <body>
     <div class="unpaidBill">
@@ -99,12 +111,13 @@
     <br>
     <hr>
 
-    <div class="allbills" th:if="${allBills}">
+    <div class="allbills" th:if="${allbill}">
         <div class="heading">
             <h1>All Bills</h1>
         </div>
         <div class="bills">
-            <table>
+            <div th:if="${allmessage}" class="all-alert" th:text="${allmessage}"> No Bill Available </div>
+            <table th:if="${allBills}">
                 <thead>
                     <tr>
                         <th>Bill Id</th> 
