@@ -12,12 +12,12 @@
                 <p class="lead" th:text="'Manage your account, view bills, make payments, and track your usage!'">
                     Manage your account, view bills, make payments, and track your usage!
                 </p>
-                <div class="mt-4">
-					<a class="btn btn-primary" th:href="@{/profiledetails(username=${customer.username})}">View Profile</a>
-
-                    <a class="btn btn-secondary" th:href="@{/unpaidBills}">View Bills</a>
-                    <a class="btn btn-success" th:href="@{/payment}">Make Payment</a>
-                    <a class="btn btn-info" th:href="@{/usage}">Track Usage</a>
+                <div class="mt-4 d-flex justify-content-center">
+                    <a class="btn btn-primary mx-1" th:href="@{/profiledetails(username=${customer.username})}">View Profile</a>
+                    <a class="btn btn-secondary mx-1" th:href="@{/unpaidBills}">View Bills</a>
+                    <a class="btn btn-success mx-1" th:href="@{/payment}">Make Payment</a>
+                    <a class="btn btn-info mx-1" th:href="@{/usage}">Track Usage</a>
+                    <a class="btn btn-warning mx-1" th:href="@{/connection-management}">Manage Connection</a>
                 </div>
             </div>
         </div>
