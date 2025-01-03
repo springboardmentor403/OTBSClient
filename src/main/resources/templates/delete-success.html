@@ -45,13 +45,12 @@
 <body>
     <div class="container mt-5">
         <h1 class="text-center">Connection Delete Success</h1>
-        <div class="alert alert-success mt-4">
-            <h4 th:text="${message}"></h4>
-            <p>Connection ID: <span th:text="${connectionId}"></span></p>
-        </div>
+   
         <div class="text-center">
             <a href="/delete-connection" class="btn btn-custom">Delete Another Connection</a>
-            <a href="/connection-management" class="btn btn-back ms-3">Go Back to Connection Management</a>
+			<div class="text-center mt-4">
+								<a href="/admindashboard" class="btn btn-back">Go Back to dashboard</a>
+					        </div>
         </div>
     </div>
 

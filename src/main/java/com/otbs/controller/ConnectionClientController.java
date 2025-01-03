@@ -130,4 +130,22 @@ public class ConnectionClientController {
         }
         return "viewconnectionbyId";
     }
+    
+    @GetMapping("/connections-near-expiry")
+    public String getConnectionsNearExpiry(@RequestParam(defaultValue = "7") int daysThreshold, Model model) {
+        try {
+            // Call the backend endpoint
+            String url = connectionBaseUrl + "/connections-nearing-expiry?daysThreshold=" + daysThreshold;
+            Connection[] connectionsArray = restTemplate.getForObject(url, Connection[].class);
+            List<Connection> connections = Arrays.asList(connectionsArray);
+
+            // Pass the data to the frontend
+            model.addAttribute("connections", connections);
+            model.addAttribute("daysThreshold", daysThreshold);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Failed to fetch connections near expiry: " + e.getMessage());
+        }
+        return "connections-near-expiry";
+    }
 }
