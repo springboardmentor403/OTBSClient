@@ -18,8 +18,9 @@ public class AppConfig {
         private String customerBaseUrl;
         private String adminBaseUrl;
         private String billBaseUrl;
-
+        private String complaintBaseUrl;
         private String planBasedUrl;
+        private String helpdeskexecutiveBaseUrl;
 
         // Getters and Setters
         
@@ -54,5 +55,24 @@ public class AppConfig {
     public void setBillBaseUrl(String billBaseUrl) {
         this.billBaseUrl = billBaseUrl;
     }
+
+	public String getComplaintBaseUrl() {
+		return complaintBaseUrl;
+	}
+
+	public void setComplaintBaseUrl(String complaintBaseUrl) {
+		this.complaintBaseUrl = complaintBaseUrl;
+	}
+
+	public String getHelpdeskexecutiveBaseUrl() {
+		return helpdeskexecutiveBaseUrl;
+	}
+
+	public void setHelpdeskexecutiveBaseUrl(String helpdeskexecutiveBaseUrl) {
+		this.helpdeskexecutiveBaseUrl = helpdeskexecutiveBaseUrl;
+	}
+	
+	
+    
 }
 
