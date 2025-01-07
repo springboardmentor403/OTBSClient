@@ -33,24 +33,24 @@
             margin-top: 20px;
         }
     </style>
-    <script>
-        function validateForm(event) {
-            const activationDateInput = document.getElementById("activationDate").value;
-            const activationDate = new Date(activationDateInput);
-            const currentDate = new Date();
-            
-            // Remove time from the current date for comparison
-            currentDate.setHours(0, 0, 0, 0);
-            
-            if (activationDate < currentDate) {
-                alert("Activation date cannot be in the past.");
-                event.preventDefault();
-            } else if (!/^\d{4}-\d{2}-\d{2}$/.test(activationDateInput)) {
-                alert("Invalid date format. Please use YYYY-MM-DD.");
-                event.preventDefault();
-            }
-        }
-    </script>
+	<script>
+	        function validateForm(event) {
+	            const activationDateInput = document.getElementById("activationdate").value;
+	            const activationDate = new Date(activationDateInput);
+	            const currentDate = new Date();
+	            
+	            // Remove time from the current date for comparison
+	            currentDate.setHours(0, 0, 0, 0);
+	            
+	            if (activationDate < currentDate) {
+	                alert("Activation date cannot be in the past.");
+	                event.preventDefault();
+	            } else if (!/^\d{4}-\d{2}-\d{2}$/.test(activationDateInput)) {
+	                alert("Invalid date format. Please use YYYY-MM-DD.");
+	                event.preventDefault();
+	            }
+	        }
+	    </script>
 </head>
 <body>
     <div class="container mt-5">
@@ -58,7 +58,8 @@
         <form th:action="@{/add-connection}" th:object="${connection}" method="post" class="mt-4" onsubmit="validateForm(event)">
             <div class="mb-3">
                 <label for="customerId" class="form-label">Customer ID</label>
-                <input type="text" id="customerObj.customerId" name="customerObj.customerId" class="form-control" required>
+				<!--<h3 th:text="${customerId}" ></h3> -->
+                <input type="text" th:value="${customerId}" id="customerObj.customerId" name="customerObj.customerId" class="form-control" readonly>
             </div>
             
             <div class="mb-3">

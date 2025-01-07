@@ -106,7 +106,9 @@
     </style>
 </head>
 <body>
+	
     <div class="container">
+		
         <h1>Plan Management</h1>
 
         <!-- Get All Plans -->
@@ -231,6 +233,16 @@
                 <button type="submit">Delete</button>
             </form>
         </div>
+			<div th:if="${role == 'customer'}">
+			<!--	<a th:href="@{/plan/customerDashboard}">Go to dashboard</a> -->
+			<a th:href="@{/dashboard}" class="btn btn-secondary btn-back">Go to dashboard</a>
+			</div>
+			
+			<div th:if="${role == 'admin'}">
+				<a th:href="@{/plan/adminDashboard}">Go to dashboard</a>
+			</div>
+			
     </div>
+	
 </body>
 </html>

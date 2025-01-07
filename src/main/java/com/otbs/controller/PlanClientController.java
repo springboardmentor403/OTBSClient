@@ -51,6 +51,21 @@ public class PlanClientController {
 	}
 	
 	
+	@GetMapping("/adminDashboard")
+	public String moveToDashboard(Model model, HttpSession session) {
+		String role=(String)session.getAttribute("role");
+		model.addAttribute("role",role);
+		return "admindashboard";
+	}
+	
+	
+	@GetMapping("/customerDashboard")
+	public String customerDashboard(Model model, HttpSession session) {
+		String role=(String)session.getAttribute("role");
+		model.addAttribute("role",role);
+		return "customerdashboard";
+	}
+	
 	@GetMapping("/viewAllPlans")
     public String listPlans(Model model) {
         try {
@@ -65,7 +80,7 @@ public class PlanClientController {
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
         			}
-        	           model.addAttribute("error","Failed to fetch plans: "+ errors);
+        	           model.addAttribute("error", errors);
         	
 //	        String responseBody = e.getResponseBodyAsString();
 //	        // Extract the message part manually (basic approach)
@@ -105,7 +120,7 @@ public class PlanClientController {
 	        		} catch (JsonProcessingException e1) {
 	        					e1.printStackTrace();
 	        			}
-	        	           model.addAttribute("error", "Failed to fetch plan: " +errors);
+	        	           model.addAttribute("error",errors);
 	        	
 //	        model.addAttribute("error", "An unexpected error occurred: " + e.getMessage());
 	    }
@@ -126,7 +141,7 @@ public class PlanClientController {
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
         			}
-        	          model.addAttribute("error", "Failed to fetch plan: " +errors);
+        	          model.addAttribute("error",errors);
 	    }  
         return "searchResultPlan";
     }
@@ -146,7 +161,7 @@ public class PlanClientController {
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
         			}
-        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+        	           model.addAttribute("error",errors);
 	    }  
         return "viewAllPlans";
     }
@@ -166,7 +181,7 @@ public class PlanClientController {
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
         			}
-        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+        	           model.addAttribute("error",errors);
 	    }  
         return "viewAllPlans";
     }
@@ -185,7 +200,7 @@ public class PlanClientController {
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
         			}
-        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+        	           model.addAttribute("error",errors);
 	    }  
         return "viewAllPlans";
     }
@@ -205,7 +220,7 @@ public class PlanClientController {
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
         			}
-        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+        	           model.addAttribute("error",errors);
 	    }  
         return "viewAllPlans";
     }
@@ -224,7 +239,7 @@ public class PlanClientController {
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
         			}
-        	           model.addAttribute("error", "Failed to fetch plans: " +errors);
+        	           model.addAttribute("error",errors);
         }
         return "viewAllPlans";
     }
@@ -235,19 +250,39 @@ public class PlanClientController {
 		return "addPlan";
 	}
 	
+//	@PostMapping("/addNewPlan")
+//    public String addNewPlan(@ModelAttribute Plan plan, Model model) {
+//        try {
+//            ResponseEntity<Plan> response = restTemplate.postForEntity(planBasedUrl + "/add", plan, Plan.class);
+//            model.addAttribute("message", "Plan added successfully! Plan ID: " + response.getBody().getPlanId());
+//        } catch (HttpClientErrorException | HttpServerErrorException e) {
+//        	Map<String, String> errors=null;
+//        	try {
+//        			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
+//        		} catch (JsonProcessingException e1) {
+//        					e1.printStackTrace();
+//        			}
+//        	           model.addAttribute("error", "Failed to fetch plan: " +errors);
+//	    } 
+//        return "addPlan";
+//    }
+	
+	
+	
 	@PostMapping("/addNewPlan")
     public String addNewPlan(@ModelAttribute Plan plan, Model model) {
         try {
             ResponseEntity<Plan> response = restTemplate.postForEntity(planBasedUrl + "/add", plan, Plan.class);
             model.addAttribute("message", "Plan added successfully! Plan ID: " + response.getBody().getPlanId());
-        } catch (HttpClientErrorException | HttpServerErrorException e) {
+        } catch (HttpClientErrorException |HttpServerErrorException e) {
         	Map<String, String> errors=null;
         	try {
         			errors = new ObjectMapper().readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, String>>() {});
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
-        			}
-        	           model.addAttribute("error", "Failed to fetch plan: " +errors);
+        		}
+        	
+        	           model.addAttribute("error", errors);
 	    } 
         return "addPlan";
     }
@@ -273,7 +308,7 @@ public class PlanClientController {
             		} catch (JsonProcessingException e1) {
             					e1.printStackTrace();
             		}
-            	           model.addAttribute("error", "Failed to update plan: " + errors);
+            	           model.addAttribute("error", errors);
     	    } 
 //        	Map<String, String> errors=null;
 //        	try {
@@ -302,7 +337,7 @@ public class PlanClientController {
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
         			}
-        	           model.addAttribute("error", "Failed to update plan: " +errors);
+        	           model.addAttribute("error", errors);
         }
         return "updatePlan";
     }
@@ -321,7 +356,7 @@ public class PlanClientController {
         		} catch (JsonProcessingException e1) {
         					e1.printStackTrace();
         			}
-        	           model.addAttribute("error", "Failed to delet plan: " +errors);
+        	           model.addAttribute("error",errors);
 	    } 
         return "deletePlan";
     }

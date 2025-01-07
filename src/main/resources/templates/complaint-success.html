@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connection Activation Success</title>
+    <title>Complaint Submitted!</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
         body {
@@ -36,16 +36,16 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">Connection Activation Success</h1>
+        <h1 class="text-center">Complaint submitted!!</h1>
      <!--  <div class="alert alert-success mt-4">
             <h4 th:text="${message}"></h4>
-            <p>Connection ID: <span th:text="${connectionId}"></span></p>
+            <p>Complaint ID: <span th:text="${complaintId}"></span></p>
             <p>Processing Fee: <span th:text="${processingFee}"></span></p>
         </div> --> 
         <!-- Buttons -->
         <div class="text-center mt-4">
-            <a href="/add-connection" class="btn btn-primary">Apply for Another Connection</a>
-            <a th:href="@{/connection-management}" class="btn btn-secondary">Go Back to Connection Management</a>
+            <a href="/addComplaint" class="btn btn-primary">Any Other Complaint?</a>
+            <a th:href="@{/complaintmanagement}" class="btn btn-primary">Go Back to Complaint Management</a>
         </div>
     </div>
 

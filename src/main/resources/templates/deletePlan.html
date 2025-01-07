@@ -87,7 +87,7 @@
         <h1>Delete Plan</h1>
        <!-- <div th:if="${error}" class="message error" th:text="${error}"></div> -->
 		<div th:if="${error !=null}" class="message error">
-			<ul>
+			<ul type="none">
 				<li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>
 			</ul>
 		</div>	

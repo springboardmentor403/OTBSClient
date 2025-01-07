@@ -83,14 +83,14 @@
 <body>
     <div class="container">
         <h1>All Plans</h1>
-        <div class="error-message" th:if="${error}" th:text="${error}"></div>
-		<!--
+       <!--  <div class="error-message" th:if="${error}" th:text="${error}"></div>  -->
+		
 		<div th:if="${error !=null}" class="error-message">
-			<ul>
+			<ul type="none">
 				<li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>				
 			</ul>
 		</div>
-		-->
+		
         <table>
             <thead>
                 <tr>
@@ -106,7 +106,6 @@
                     <th>Extra Charge Per MB</th>
                     <th>Extra Charge Per Call</th>
                     <th>Extra Charge Per SMS</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -123,7 +122,6 @@
                     <td th:text="${plan.extraChargePerMB}"></td>
                     <td th:text="${plan.extraChargePerCall}"></td>
                     <td th:text="${plan.extraChargePerSMS}"></td>
-                    <td><button>Buy This Plan</button></td>
                 </tr>
             </tbody>
         </table>

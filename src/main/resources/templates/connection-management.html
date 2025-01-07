@@ -37,9 +37,15 @@
     </style>
 </head>
 <body>
+	<a th:href="@{/dashboard}" class="btn btn-secondary btn-back mx-1 ml-1">Go to dashboard</a>
     <div class="container mt-5">
         <h1 class="text-center">Connection Management System</h1>
         <div class="list-group mt-4">
+			
+			<a th:href="@{/view-my-connections}" class="list-group-item list-group-item-action">
+						    View My Connections
+						</a>
+			
             <!-- Activate Connection -->
             <a th:href="@{/add-connection}" class="list-group-item list-group-item-action">
                 Activate Connection
@@ -49,46 +55,20 @@
             <a th:href="@{/upgrade-connection}" class="list-group-item list-group-item-action">
                 Upgrade Connection by Connection ID
             </a>
-            
-            <!-- Delete Connection by Connection ID -->
-            <a th:href="@{/delete-connection}" class="list-group-item list-group-item-action">
-                Delete Connection by Connection ID
-            </a>
-            
-            <!-- View All Connections -->
-            <a th:href="@{/view-all-connections}" class="list-group-item list-group-item-action">
-                View All Connections
-            </a>
-            
-            <!-- View Connection by Connection ID -->
-            <a th:href="@{/viewconnectionbyId}" class="list-group-item list-group-item-action">
-                View Connection by Connection ID
-            </a>
-
-            <!-- Add New Outlet -->
-            <a th:href="@{/add-outlet}" class="list-group-item list-group-item-action">
-                Add New Outlet
-            </a>
-
-            <!-- View All Outlets -->
-            <a th:href="@{/view-all-outlets}" class="list-group-item list-group-item-action">
-                View All Outlets
-            </a>
 
             <!-- Find Nearest Outlet -->
-            <a th:href="@{/findNearestOutlet}" class="list-group-item list-group-item-action">
-                Find Nearest Outlet
-            </a>
+            <a th:href="@{/findNearestOutlet}" class="list-group-item list-group-item-action">Find Nearest Outlet </a>
+			
+			<!-- View Connection by Connection ID -->
+			<a th:href="@{/viewconnectionbyId}" class="list-group-item list-group-item-action">
+				View Connection by Connection ID
+			</a>
+			
+			<!-- View Connection Log by Connection ID -->
+			<a th:href="@{/view-connection-log}" class="list-group-item list-group-item-action">
+			    View Connection Log by Connection ID
+			</a>
 
-            <!-- View Connection Logs -->
-            <a th:href="@{/view-all-connectionLogs}" class="list-group-item list-group-item-action">
-                View All Connection Logs
-            </a>
-
-            <!-- View Connection Log by Connection ID -->
-            <a th:href="@{/view-connection-log}" class="list-group-item list-group-item-action">
-                View Connection Log by Connection ID
-            </a>
         </div>
     </div>
 

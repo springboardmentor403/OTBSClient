@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View All Connections</title>
+    <title>My Connections</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
 
     <style>
@@ -28,14 +28,6 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
-        .btn-back {
-            background-color: #6c757d;
-            border: none;
-            color: white;
-        }
-        .btn-back:hover {
-            background-color: #5a6268;
-        }
         .table thead th {
             font-size: 1.1rem;
             color: white;
@@ -47,13 +39,14 @@
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center">All Connections</h1>
+        <h1 class="text-center">My Connections</h1>
+        <div th:if="${error}" class="alert alert-danger text-center" th:text="${error}"></div>
+
         <div class="table-responsive mt-4">
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
                     <tr>
                         <th>Connection ID</th>
-                        <th>Customer ID</th>
                         <th>Connection Type</th>
                         <th>Network Type</th>
                         <th>Processing Fee</th>
@@ -66,12 +59,10 @@
                 <tbody>
                     <tr th:each="connection : ${connections}">
                         <td th:text="${connection.connectionId}"></td>
-                        <td th:text="${connection.customerObj.customerId}"></td>
                         <td th:text="${connection.connectionType}"></td>
                         <td th:text="${connection.networkType}"></td>
                         <td th:text="${connection.processingFee}"></td>
-                        <!-- Activation Date: Default format with fallback for null -->
-						<td th:text="${connection.activationdate }"></td>
+                        <td th:text="${connection.activationdate}" ></td>
                         <td th:text="${connection.status}"></td>
                         <td th:text="${connection.plan.planId}"></td>
                         <td th:text="${connection.outletObj.outletId}"></td>
@@ -79,10 +70,10 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="text-center mt-4">
-			<a href="/admindashboard" class="btn btn-back">Go Back to dashboard</a>
-        </div>
+		<!-- Button to go back to connection management -->
+		        <div class="text-center mt-4">
+		            <a href="/connection-management" class="btn btn-back">Go Back to Connection Management</a>
+		        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>

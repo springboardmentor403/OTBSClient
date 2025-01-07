@@ -21,6 +21,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.otbs.model.Connection;
+import com.otbs.model.Customer;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 
 @Controller
 public class ConnectionClientController {
@@ -44,7 +48,9 @@ public class ConnectionClientController {
     }
 
     @GetMapping("/add-connection")
-    public String showActivatePage(Model model) {
+    public String showActivatePage(Model model, HttpSession session) {
+    	int customerId= (int)session.getAttribute("customerId");
+    	model.addAttribute("customerId",customerId);
         model.addAttribute("connection", new Connection());
         return "add-connection";
     }
@@ -130,4 +136,52 @@ public class ConnectionClientController {
         }
         return "viewconnectionbyId";
     }
+    
+    @GetMapping("/connections-near-expiry")
+    public String getConnectionsNearExpiry(@RequestParam(defaultValue = "7") int daysThreshold, Model model) {
+        try {
+            // Call the backend endpoint
+            String url = connectionBaseUrl + "/connections-nearing-expiry?daysThreshold=" + daysThreshold;
+            Connection[] connectionsArray = restTemplate.getForObject(url, Connection[].class);
+            List<Connection> connections = Arrays.asList(connectionsArray);
+
+            // Pass the data to the frontend
+            model.addAttribute("connections", connections);
+            model.addAttribute("daysThreshold", daysThreshold);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Failed to fetch connections near expiry: " + e.getMessage());
+        }
+        return "connections-near-expiry";
+    }
+    
+    
+    @GetMapping("/view-my-connections")
+    public String viewMyConnections(HttpSession session, Model model) {
+        try {
+            // Retrieve customer ID from session
+            Customer loggedInCustomer = (Customer) session.getAttribute("loggedInCustomer");
+            if (loggedInCustomer == null) {
+                model.addAttribute("error", "Please log in to view your connections.");
+                return "login"; // Redirect to login page if no customer is in session
+            }
+
+            int customerId = loggedInCustomer.getCustomerId();
+            logger.info("Fetching connections for customer ID: {}", customerId);
+
+            // Call the backend API to fetch connections for the specific customer
+            String url = connectionBaseUrl + "/customer/" + customerId + "/connections";
+            ResponseEntity<Connection[]> response = restTemplate.getForEntity(url, Connection[].class);
+            List<Connection> connections = Arrays.asList(response.getBody());
+
+            // Add connections to the model
+            model.addAttribute("connections", connections);
+        } catch (Exception e) {
+            logger.error("Error fetching connections: {}", e.getMessage());
+            model.addAttribute("error", "Unable to fetch connections at this time. Please try again later.");
+        }
+        return "view-my-connections"; // Corresponding Thymeleaf template
+    }
+    
+    
 }

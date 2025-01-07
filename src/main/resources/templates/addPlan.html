@@ -38,7 +38,7 @@
         }
 
         .message.error {
-            color: #ff6b6b;
+            color: rgb(255, 0, 0);
         }
 
         .message.success {
@@ -108,12 +108,12 @@
 <body>
     <div class="container">
         <h1>Add New Plan</h1>
-        <!-- th:if="${error}" class="message error" th:text="${error}"> -->
+       
 		<div th:if="${error !=null}" class="message error">
-			<ul>
-			   <li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>
-			</ul>
-		</div>	
+			<ul type="none">
+		        <li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>
+		    </ul>
+		</div>
 		
         <div th:if="${message}" class="message success" th:text="${message}"></div>
         <form id="addPlanForm" th:action="@{/plan/addNewPlan}" method="post">

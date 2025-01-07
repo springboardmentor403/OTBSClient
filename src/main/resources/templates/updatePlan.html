@@ -110,12 +110,13 @@
 <body>
     <div class="container">
         <h1>Update Plan</h1>
-        <div th:if="${error}" class="message error" th:text="${error}"></div> 
-		<!-- <div th:if="${error !=null}" class="message error">
-			<ul>
+       <!-- <div th:if="${error}" class="message error" th:text="${error}"></div> -->
+		 <div th:if="${error !=null}" class="message error">
+			<ul type="none">
 				<li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>				
 			</ul>
-		</div> -->
+		</div> 
+		
         <div th:if="${message}" class="message success" th:text="${message}"></div>
 
         <!-- Initial Form to Fetch Plan by ID -->

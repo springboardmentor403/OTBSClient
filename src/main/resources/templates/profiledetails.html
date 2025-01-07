@@ -80,20 +80,22 @@
         }
     </style>
     <script>
-		function toggleEditMode() {
-				    const inputs = document.querySelectorAll('.profile-section input, .profile-section select');
-				    const editButton = document.getElementById('editButton');
-				    const updateButton = document.getElementById('updateButton');
-
-				    // Enable editing of fields except for username and password
-				    inputs.forEach(input => {
-				        if (input.id !== 'username' && input.id !== 'password') {
-				            input.disabled = false;
-				        }
-				    });
-				    editButton.style.display = 'none';
-				    updateButton.style.display = 'inline-block';
-				}
+        function toggleEditMode() {
+            const inputs = document.querySelectorAll('.profile-section input, .profile-section select');
+            const editButton = document.getElementById('editButton');
+            const updateButton = document.getElementById('updateButton');
+            
+			if (editButton.style.display !== 'none') {
+			        // Enable editing except for username and password
+			        inputs.forEach(input => {
+			            if (input.id !== 'username' && input.id !== 'password') {
+			                input.disabled = false;
+			            }
+			        });
+			        editButton.style.display = 'none';
+			        updateButton.style.display = 'inline-block';
+			    }
+        }
 
         function saveDetails() {
             document.getElementById('profileForm').submit();
@@ -104,10 +106,10 @@
             const toggleIcon = document.getElementById('togglePassword');
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                toggleIcon.textContent = '👁️‍🗨️';
+                toggleIcon.textContent = '👁‍🗨';
             } else {
                 passwordInput.type = 'password';
-                toggleIcon.textContent = '👁️';
+                toggleIcon.textContent = '👁';
             }
         }
     </script>
@@ -140,17 +142,21 @@
                 <input type="text" id="address" name="address" th:value="${customer.address}" disabled>
             </div>
             
-            <!-- Username -->
-            <div class="profile-section">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" th:value="${customer.username}" disabled>
-            </div>
+			<!-- Username -->
+			<div class="profile-section">
+			    <label for="username">Username</label>
+			    <input type="text" id="username" name="displayUsername" th:value="${customer.username}" disabled>
+			    <!-- Hidden input to pass the username in the form submission -->
+			    <input type="hidden" name="username" th:value="${customer.username}">
+			</div>
+
             
             <!-- Password -->
             <div class="profile-section password-container">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" th:value="${customer.password}" disabled>
-                <span class="toggle-password" id="togglePassword" onclick="togglePasswordVisibility()">👁️</span>
+                <span class="toggle-password" id="togglePassword" onclick="togglePasswordVisibility()">👁</span>
+				<input type="hidden" name="password" th:value="${customer.password}">
             </div>
             
             <!-- DOB -->

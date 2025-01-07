@@ -82,7 +82,7 @@
 		
 		<!-- Display error message -->
 		<div th:if="${error != null}" class="message-error">
-			<ul>
+			<ul type="none">
 				<li th:each="errorMsg : ${error.values()}" th:text="${errorMsg}"></li>
 			</ul>
 		</div>	
@@ -114,7 +114,6 @@
             <a th:href="@{/plan/manage}">
                 <button type="button">Back</button>
             </a>
-            <button type="button">Buy This Plan</button>
         </div>
     </div>
 </body>
